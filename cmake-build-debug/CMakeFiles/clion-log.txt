@@ -1,0 +1,5 @@
+/home/xplo/Downloads/clion-2021.2.1/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - Unix Makefiles" /home/xplo/ESIEE/cpp/Project_SDL_Part1_ABDOUCHE
+-- Building for Linux or Mac
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/xplo/ESIEE/cpp/Project_SDL_Part1_ABDOUCHE/cmake-build-debug
