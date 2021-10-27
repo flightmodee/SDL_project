@@ -6,36 +6,17 @@
 #include "wolf.h"
 
 wolf::wolf(const std::string& file_path, SDL_Surface* window_surface_ptr) : animal(file_path, window_surface_ptr, false, false){
+    pos_x() = frame_boundary + std::rand() % (frame_width - 2 * frame_boundary);
+    pos_y() = frame_boundary + std::rand() % (frame_height - 2 * frame_boundary);
+    vel_x() = 40 - std::rand() % 80;
+    vel_y() = 40 - std::rand() % 80;
     properties() = { "wolf","alive" };
 }
 
 
 void wolf::move(){
 
-  int surface_width = image_ptr_->clip_rect.w;
-  int surface_height = image_ptr_->clip_rect.h;
-
-  if (pos_y_ >= frame_height - frame_boundary - surface_height)
-    vertical_direction_ = false;
-
-  if (pos_y_ <= frame_boundary)
-    vertical_direction_ = true;
-
-  if (pos_x_ >= frame_width - frame_boundary - surface_width)
-    horizontal_direction_ = false;
-
-  if (pos_x_ <= frame_boundary)
-    horizontal_direction_ = true;
-
-  if (vertical_direction_)
-    pos_y_+=1;
-  else
-    pos_y_-=1;
-
-  if (horizontal_direction_)
-    pos_x_+=1;
-  else
-    pos_x_-=1;
+    constrained_linear_move_(pos_x(), pos_y(), vel_x(), vel_y());
 
 }
 
