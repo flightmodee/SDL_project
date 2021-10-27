@@ -1,4 +1,4 @@
-﻿#include "Project_SDL1.h"
+﻿#include "headers.h"
 #include <algorithm>
 #include <cstdlib>
 #include <string>
@@ -74,7 +74,6 @@ void animal::draw() const{
 
   SDL_BlitSurface(image_ptr_, nullptr, window_surface_ptr_, &sheep_rect);
 }
-
 
 
 
@@ -191,8 +190,8 @@ application::application(unsigned int n_sheep, unsigned int n_wolf) {
   SDL_Event e;
   window_event_ = e;
 
-  std::string sheep_path = "whatever_it_is/Project_SDL_Part1_base/media/sheep.png";
-  std::string wolf_path = "whatever_it_is/Project_SDL_Part1_base/media/wolf.png";
+  std::string sheep_path = "/home/xplo/ESIEE/cpp/Project_SDL_Part1_ABDOUCHE/media/sheep.png";
+  std::string wolf_path = "/home/xplo/ESIEE/cpp/Project_SDL_Part1_ABDOUCHE/media/wolf.png";
 
 
   //let's make things colorful.

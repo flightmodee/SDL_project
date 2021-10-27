@@ -3,6 +3,8 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
+#include <string>
+#include "animal.h"
 #include <iostream>
 #include <map>
 #include <memory>
@@ -23,6 +25,7 @@ constexpr unsigned frame_boundary = 100;
 // Helper function to initialize SDL
 void init();
 
+/*
 
 class animal {
 protected:
@@ -44,31 +47,34 @@ public:
 
   virtual void move() = 0;
 
-};
+};*/
 
 
 
 /** CLASS SHEEP, DERIVED FROM ANIMAL **/
-
+/*
 class sheep : public animal {
 public:
   sheep(const std::string& file_path, SDL_Surface* window_surface_ptr);
   ~sheep() override;
   void move() override;
   // implement functions that are purely virtual in base class
-};
+};*/
 
 /** CLASS WOLF, DERIVED FROM ANIMAL **/
 
+/*
 class wolf : public animal {
 public:
   wolf(const std::string& file_path, SDL_Surface* window_surface_ptr);
   ~wolf() override;
   void move() override;
-};
+};*/
+
+
 
 /** CLASS GROUND, WHERE ALL THE ANIMALS "LIVE" **/
-
+/*
 class ground {
 private:
   std::vector<std::shared_ptr<animal>> animals_;
@@ -79,9 +85,10 @@ public:
   void add_animal(const std::shared_ptr<animal>& a);
   void update() const;
   [[nodiscard]] std::vector<std::shared_ptr<animal>> getAnimals() const;
-};
+};*/
 
 // The application class, which is in charge of generating the window
+/*
 class application {
 private:
   // The following two are owning pointers.
@@ -101,4 +108,4 @@ public:
                              // duration the application should terminate after
                              // 'period' seconds
 
-};
+};*/
