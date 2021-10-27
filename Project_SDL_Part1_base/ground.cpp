@@ -16,6 +16,21 @@ std::vector<std::shared_ptr<animal>> ground::getAnimals() const {
 }
 
 void ground::update() const {
+for (const auto& a : animals_) {
+    int xA = a->pos_x();
+    int yA = a->pos_y();
+    for (const auto& b : animals_) {
+        if (a == b)
+            continue;
+        double xB = b->pos_x();
+        double yB = b->pos_y();
+        double dx = xB - xA;
+        double dy = yB - yA;
+        double distance = sqrt(dx * dx + dy * dy);
+        if (distance < 3)
+            std::cout << "yo" << std::endl;
+    }
+}
   for (const auto& a : animals_) {
     a->move();
     a->draw();

@@ -5,7 +5,9 @@
 #include "headers.h"
 #include "wolf.h"
 
-wolf::wolf(const std::string& file_path, SDL_Surface* window_surface_ptr) : animal(file_path, window_surface_ptr, false, false){}
+wolf::wolf(const std::string& file_path, SDL_Surface* window_surface_ptr) : animal(file_path, window_surface_ptr, false, false){
+    properties() = { "wolf","alive" };
+}
 
 
 void wolf::move(){
@@ -13,27 +15,27 @@ void wolf::move(){
   int surface_width = image_ptr_->clip_rect.w;
   int surface_height = image_ptr_->clip_rect.h;
 
-  if (y_ >= frame_height - frame_boundary - surface_height)
+  if (pos_y_ >= frame_height - frame_boundary - surface_height)
     vertical_direction_ = false;
 
-  if (y_ <= frame_boundary)
+  if (pos_y_ <= frame_boundary)
     vertical_direction_ = true;
 
-  if (x_ >= frame_width - frame_boundary - surface_width)
+  if (pos_x_ >= frame_width - frame_boundary - surface_width)
     horizontal_direction_ = false;
 
-  if (x_ <= frame_boundary)
+  if (pos_x_ <= frame_boundary)
     horizontal_direction_ = true;
 
   if (vertical_direction_)
-    y_+=1;
+    pos_y_+=1;
   else
-    y_-=1;
+    pos_y_-=1;
 
   if (horizontal_direction_)
-    x_+=1;
+    pos_x_+=1;
   else
-    x_-=1;
+    pos_x_-=1;
 
 }
 

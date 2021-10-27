@@ -11,8 +11,8 @@ animal::animal(const std::string &file_path, SDL_Surface *window_surface_ptr, bo
   image_ptr_ = load_surface_for(file_path, window_surface_ptr);
 
   //Let's make sure our animals spawn within the boundaries of our zoo.
-  x_ = rand() % (frame_width - frame_boundary - image_ptr_->w) + frame_boundary;
-  y_ = rand() % (frame_height - frame_boundary - image_ptr_->h) + frame_boundary;
+  pos_x_ = rand() % (frame_width - frame_boundary - image_ptr_->w) + frame_boundary;
+  pos_y_ = rand() % (frame_height - frame_boundary - image_ptr_->h) + frame_boundary;
 
 }
 
@@ -27,8 +27,8 @@ void animal::draw() const{
   Uint32 color_key = SDL_MapRGB(image_ptr_->format, 0, 0, 0);
   SDL_SetColorKey(image_ptr_, SDL_TRUE, color_key);
   SDL_Rect sheep_rect;
-  sheep_rect.x = x_;
-  sheep_rect.y = y_;
+  sheep_rect.x = pos_x_;
+  sheep_rect.y = pos_y_;
 
   SDL_BlitSurface(image_ptr_, nullptr, window_surface_ptr_, &sheep_rect);
 }
