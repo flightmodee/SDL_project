@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "Project_SDL1.h"
 #include "animal.h"
+#include "utils.h"
 
 class wolf : public animal {
 public:

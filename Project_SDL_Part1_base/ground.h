@@ -3,9 +3,9 @@
 //
 #pragma once
 
-#include "headers.h"
-#include "Project_SDL1.h"
 #include "animal.h"
+#include "headers.h"
+#include "utils.h"
 
 class ground {
 private:

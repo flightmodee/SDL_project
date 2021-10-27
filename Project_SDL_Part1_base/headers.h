@@ -3,11 +3,10 @@
 //
 #pragma once
 
-#include "Project_SDL1.h"
-#include <string>
+#include "utils.h"
 #include <SDL.h>
 #include <SDL_image.h>
-#include <vector>
 #include <iostream>
 #include <memory>
-
+#include <string>
+#include <vector>

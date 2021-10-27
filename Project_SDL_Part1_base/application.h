@@ -3,9 +3,8 @@
 //
 #pragma once
 
-#include "Project_SDL1.h"
 #include "ground.h"
-
+#include "utils.h"
 
 class application {
 private:

@@ -2,8 +2,7 @@
 // Created by xplo on 27/10/2021.
 //
 
-#include "Project_SDL1.h"
-
+#include "utils.h"
 
 #pragma once
 
