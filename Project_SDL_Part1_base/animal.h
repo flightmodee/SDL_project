@@ -16,14 +16,11 @@ protected:
   double pos_y_;
   double vel_x_;
   double vel_y_;
-  bool horizontal_direction_; //These booleans are used to represent the horizontal and vertical directions of an animal's movement.
-                              // If they're true, they respectively indicate the animal is moving downwards and rightwards, and vice versa.
-  bool vertical_direction_;
   std::set<std::string> properties_; //This set are used to know more about the type, the status (alive or dead) of the animal
  
 
 public:
-  animal(const std::string& file_path, SDL_Surface* window_surface_ptr, bool horizontal_direction, bool vertical_direction);
+  animal(const std::string& file_path, SDL_Surface* window_surface_ptr);
   virtual ~animal() = default;
 
   void draw() const;
@@ -38,7 +35,18 @@ public:
   double vel_y() const { return vel_y_; };
   double& vel_y() { return vel_y_; };
 
-  std::set<std::string> properties() const { return properties_; };
-  std::set<std::string>& properties() { return properties_; };
+  /*std::set<std::string> properties() const { return properties_; };
+  std::set<std::string>& properties() { return properties_; };*/
+  
+  
+  enum AnimalType {Wolf,Sheep};
+  enum AliveState {Alive,Dead};
+  enum Gender {Male, Female};
+
+  struct properties {
+      AnimalType type;
+      AliveState state;
+      Gender gender;
+  };
 
 };

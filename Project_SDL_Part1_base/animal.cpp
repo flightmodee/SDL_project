@@ -5,15 +5,10 @@
 #include "headers.h"
 #include "animal.h"
 
-animal::animal(const std::string &file_path, SDL_Surface *window_surface_ptr, bool horizontal_direction, bool vertical_direction)
-    : window_surface_ptr_{window_surface_ptr}, horizontal_direction_{horizontal_direction}, vertical_direction_{vertical_direction}{
-
-  image_ptr_ = load_surface_for(file_path, window_surface_ptr);
-
-  //Let's make sure our animals spawn within the boundaries of our zoo.
-  pos_x_ = rand() % (frame_width - frame_boundary - image_ptr_->w) + frame_boundary;
-  pos_y_ = rand() % (frame_height - frame_boundary - image_ptr_->h) + frame_boundary;
-
+animal::animal(const std::string &file_path, SDL_Surface *window_surface_ptr): 
+    window_surface_ptr_{window_surface_ptr},
+    image_ptr_{ load_surface_for(file_path, window_surface_ptr) }
+    {
 }
 
 void animal::draw() const{

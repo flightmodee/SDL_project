@@ -27,8 +27,11 @@ for (const auto& a : animals_) {
         double dx = xB - xA;
         double dy = yB - yA;
         double distance = sqrt(dx * dx + dy * dy);
-        if (distance < 3)
+        if (distance < 25) {
             std::cout << "yo" << std::endl;
+            
+        }
+            
     }
 }
   for (const auto& a : animals_) {
