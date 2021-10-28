@@ -27,9 +27,24 @@ for (const auto& a : animals_) {
         double dx = xB - xA;
         double dy = yB - yA;
         double distance = sqrt(dx * dx + dy * dy);
-        if (distance < 25) {
-            std::cout << "yo" << std::endl;
-            
+        double vAx = a->vel_x();
+        double vAy = a->vel_y();
+        double vBx = b->vel_x();
+        double vBy = b->vel_y();
+        if (distance < 150) {
+
+            if (a->isSheep()) {
+                if (b->isWolf()) {
+                        a->vel_x() = - vBx *2;
+                        a->vel_y() = -vBy*2;
+                }
+
+
+                else if (b->isSheep()) {
+                    continue;
+                }
+            }
+
         }
             
     }

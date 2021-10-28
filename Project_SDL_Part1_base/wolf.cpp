@@ -10,7 +10,7 @@ wolf::wolf(const std::string& file_path, SDL_Surface* window_surface_ptr) : anim
     pos_y() = frame_boundary + std::rand() % (frame_height - 2 * frame_boundary);
     vel_x() = 40 - std::rand() % 80;
     vel_y() = 40 - std::rand() % 80;
-    struct properties prop = { AnimalType::Wolf, AliveState::Alive};
+    properties() = { "wolf","alive" };
 }
 
 

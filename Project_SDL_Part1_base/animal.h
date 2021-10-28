@@ -16,6 +16,8 @@ protected:
   double pos_y_;
   double vel_x_;
   double vel_y_;
+  int w_;
+  int h_;
   std::set<std::string> properties_; //This set are used to know more about the type, the status (alive or dead) of the animal
  
 
@@ -35,18 +37,9 @@ public:
   double vel_y() const { return vel_y_; };
   double& vel_y() { return vel_y_; };
 
-  /*std::set<std::string> properties() const { return properties_; };
-  std::set<std::string>& properties() { return properties_; };*/
-  
-  
-  enum AnimalType {Wolf,Sheep};
-  enum AliveState {Alive,Dead};
-  enum Gender {Male, Female};
 
-  struct properties {
-      AnimalType type;
-      AliveState state;
-      Gender gender;
-  };
-
+  std::set<std::string> properties() const { return properties_; };
+  std::set<std::string>& properties() { return properties_; };
+  bool isSheep();
+  bool isWolf();
 };

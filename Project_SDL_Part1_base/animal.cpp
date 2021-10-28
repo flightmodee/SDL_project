@@ -21,9 +21,17 @@ void animal::draw() const{
   //These two next lines are used to get rid of the PNG backgrounds
   Uint32 color_key = SDL_MapRGB(image_ptr_->format, 0, 0, 0);
   SDL_SetColorKey(image_ptr_, SDL_TRUE, color_key);
-  SDL_Rect sheep_rect;
-  sheep_rect.x = pos_x();
-  sheep_rect.y = pos_y();
+  SDL_Rect pos;
+  pos.x = (int)pos_x();
+  pos.y = (int)pos_y();
+  std::cout << pos.w << " " << pos.h << std::endl;
+  SDL_BlitScaled(image_ptr_, NULL, window_surface_ptr_, &pos);
+}
 
-  SDL_BlitSurface(image_ptr_, nullptr, window_surface_ptr_, &sheep_rect);
+bool animal::isSheep() {
+    return properties().count("sheep");
+}
+bool animal::isWolf() {
+    return properties().count("wolf");
+
 }

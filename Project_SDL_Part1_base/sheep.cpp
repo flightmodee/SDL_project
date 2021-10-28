@@ -13,7 +13,7 @@ sheep::sheep(const std::string& file_path, SDL_Surface* window_surface_ptr) :
     pos_y() = frame_boundary + std::rand() % (frame_height - 2 * frame_boundary);
     vel_x() = 40 - std::rand() % 80;
     vel_y() = 40 - std::rand() % 80;
-    struct properties prop = { AnimalType::Sheep, AliveState::Alive, Gender::Male };
+    properties() = { "sheep","alive","male" };
 }
 void sheep::move(){
     constrained_linear_move_(pos_x(), pos_y(), vel_x(), vel_y());
