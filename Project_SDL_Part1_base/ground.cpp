@@ -17,13 +17,13 @@ std::vector<std::shared_ptr<animal>> ground::getAnimals() const {
 
 void ground::update() const {
 for (const auto& a : animals_) {
-    int xA = a->pos_x();
-    int yA = a->pos_y();
+    int xA = a->pos_x() + (a->getw()) / 2;
+    int yA = a->pos_y() + (a->geth()) / 2;
     for (const auto& b : animals_) {
         if (a == b)
             continue;
-        double xB = b->pos_x();
-        double yB = b->pos_y();
+        double xB = b->pos_x()+(b->getw())/2;
+        double yB = b->pos_y() + (b->geth()) / 2;
         double dx = xB - xA;
         double dy = yB - yA;
         double distance = sqrt(dx * dx + dy * dy);
@@ -31,12 +31,22 @@ for (const auto& a : animals_) {
         double vAy = a->vel_y();
         double vBx = b->vel_x();
         double vBy = b->vel_y();
-        if (distance < 150) {
+        if (distance < 100) {
 
             if (a->isSheep()) {
                 if (b->isWolf()) {
-                        a->vel_x() = - vBx *2;
-                        a->vel_y() = -vBy*2;
+                    if (vBx < 0 && vAx >0 || vBx > 0 && vAx < 0) {
+                        a->vel_x() = -vAx;
+                    }
+                    if (vBx < 0 && vAx < 0 || vBx > 0 && vAx > 0) {
+                        a->vel_x() = vAx;
+                    }
+                    if (vBy < 0 && vAy >0 || vBy > 0 && vAy < 0) {
+                        a->vel_y() = -vAy;
+                    }
+                    if (vBy < 0 && vAy < 0 || vBy > 0 && vAy > 0) {
+                        a->vel_y() = vAy;
+                    }
                 }
 
 
