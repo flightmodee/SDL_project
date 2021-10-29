@@ -27,16 +27,8 @@ for (const auto& a : animals_) {
         double dx = xB - xA;
         double dy = yB - yA;
         double distance = sqrt(dx * dx + dy * dy);
-        double vAx = a->vel_x();
-        double vAy = a->vel_y();
-        double vBx = b->vel_x();
-        double vBy = b->vel_y();
         if (distance < 100) {
-
-            if (a->isSheep()) {
-                a->interact(b.get());
-            }
-
+            a->interact(b.get());
         }
             
     }
