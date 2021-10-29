@@ -42,6 +42,8 @@ public:
 
   std::set<std::string> properties() const { return properties_; };
   std::set<std::string>& properties() { return properties_; };
+
+  virtual void interact(animal* otherAnimal) = 0;
   bool isSheep();
   bool isWolf();
 };

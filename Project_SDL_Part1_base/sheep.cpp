@@ -17,7 +17,26 @@ sheep::sheep(const std::string& file_path, SDL_Surface* window_surface_ptr) :
 }
 void sheep::move(){
     constrained_linear_move_(pos_x(), pos_y(), vel_x(), vel_y());
-
+}
+void sheep::interact(animal* otherAnimal) {
+    if (otherAnimal->isWolf()) {
+        double vAx = this->vel_x();
+        double vAy = this->vel_y();
+        double vBx = otherAnimal->vel_x();
+        double vBy = otherAnimal->vel_y();
+        if (vBx < 0 && vAx >0 || vBx > 0 && vAx < 0) {
+            this->vel_x() = -vAx;
+        }
+        if (vBx < 0 && vAx < 0 || vBx > 0 && vAx > 0) {
+            this->vel_x() = vAx;
+        }
+        if (vBy < 0 && vAy >0 || vBy > 0 && vAy < 0) {
+            this->vel_y() = -vAy;
+        }
+        if (vBy < 0 && vAy < 0 || vBy > 0 && vAy > 0) {
+            this->vel_y() = vAy;
+        }
+    }
 }
 
 sheep::~sheep() {

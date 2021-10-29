@@ -20,6 +20,9 @@ void wolf::move(){
 
 }
 
+void wolf::interact(animal* otherAnimal) {
+}
+
 wolf::~wolf() {
   std::cout << "A wolf is gone. Good riddance, it'd prey on our precious sheep." << std::endl;
   SDL_FreeSurface(image_ptr_);

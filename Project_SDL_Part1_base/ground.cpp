@@ -34,25 +34,7 @@ for (const auto& a : animals_) {
         if (distance < 100) {
 
             if (a->isSheep()) {
-                if (b->isWolf()) {
-                    if (vBx < 0 && vAx >0 || vBx > 0 && vAx < 0) {
-                        a->vel_x() = -vAx;
-                    }
-                    if (vBx < 0 && vAx < 0 || vBx > 0 && vAx > 0) {
-                        a->vel_x() = vAx;
-                    }
-                    if (vBy < 0 && vAy >0 || vBy > 0 && vAy < 0) {
-                        a->vel_y() = -vAy;
-                    }
-                    if (vBy < 0 && vAy < 0 || vBy > 0 && vAy > 0) {
-                        a->vel_y() = vAy;
-                    }
-                }
-
-
-                else if (b->isSheep()) {
-                    continue;
-                }
+                a->interact(b.get());
             }
 
         }

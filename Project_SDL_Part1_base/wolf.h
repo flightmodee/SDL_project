@@ -11,4 +11,5 @@ public:
   wolf(const std::string& file_path, SDL_Surface* window_surface_ptr);
   ~wolf() override;
   void move() override;
+  void interact(animal* otherAnimal) override;
 };
