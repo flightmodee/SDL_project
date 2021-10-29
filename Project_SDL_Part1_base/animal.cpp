@@ -36,5 +36,7 @@ bool animal::isSheep() {
 }
 bool animal::isWolf() {
     return properties().count("wolf");
-
+}
+bool animal::isMale() {
+    return properties().count("male");
 }

@@ -13,11 +13,13 @@ sheep::sheep(const std::string& file_path, SDL_Surface* window_surface_ptr) :
     pos_y() = frame_boundary + std::rand() % (frame_height - 2 * frame_boundary);
     vel_x() = 40 - std::rand() % 80;
     vel_y() = 40 - std::rand() % 80;
-    properties() = { "sheep","alive","male" };
+    properties() = { "sheep","alive",gender_[rand() & 1] }; //the sheep can be a male or a female
 }
 void sheep::move(){
     constrained_linear_move_(pos_x(), pos_y(), vel_x(), vel_y());
 }
+
+
 void sheep::interact(animal* otherAnimal) {
     if (otherAnimal->isWolf()) {
         double vAx = this->vel_x();
@@ -25,16 +27,23 @@ void sheep::interact(animal* otherAnimal) {
         double vBx = otherAnimal->vel_x();
         double vBy = otherAnimal->vel_y();
         if (vBx < 0 && vAx >0 || vBx > 0 && vAx < 0) {
-            this->vel_x() = -vAx;
+            this->vel_x() = -vAx * 1, 5;
         }
         if (vBx < 0 && vAx < 0 || vBx > 0 && vAx > 0) {
-            this->vel_x() = vAx;
+            this->vel_x() = vAx * 1, 5;
         }
         if (vBy < 0 && vAy >0 || vBy > 0 && vAy < 0) {
-            this->vel_y() = -vAy;
+            this->vel_y() = -vAy*1,5;
         }
         if (vBy < 0 && vAy < 0 || vBy > 0 && vAy > 0) {
-            this->vel_y() = vAy;
+            this->vel_y() = vAy * 1, 5;
+        }
+    }
+    if (otherAnimal->isSheep()) {
+        if (this->isMale() && !(otherAnimal->isMale()) || !(this->isMale()) && otherAnimal->isMale()) {
+            std::cout << "LET'S MAKE BABIES <33" << std::endl;
+            //TODO: create a sheep
+            
         }
     }
 }

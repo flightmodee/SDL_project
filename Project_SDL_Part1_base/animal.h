@@ -46,4 +46,5 @@ public:
   virtual void interact(animal* otherAnimal) = 0;
   bool isSheep();
   bool isWolf();
+  bool isMale();
 };

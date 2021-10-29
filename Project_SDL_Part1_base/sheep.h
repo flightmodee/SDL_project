@@ -8,6 +8,7 @@
 #pragma once
 
 class sheep : public animal {
+	std::string gender_[2] = { "male","female" };
 public:
   sheep(const std::string& file_path, SDL_Surface* window_surface_ptr);
   ~sheep() override;
