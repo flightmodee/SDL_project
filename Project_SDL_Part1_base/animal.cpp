@@ -11,7 +11,7 @@ animal::animal(const std::string &file_path, SDL_Surface *window_surface_ptr):
     h_{image_ptr_->h},
     w_{image_ptr_->w}
     {
-}
+};
 
 void animal::draw() const{
 
@@ -31,12 +31,7 @@ void animal::draw() const{
   SDL_BlitScaled(image_ptr_, NULL, window_surface_ptr_, &pos);
 }
 
-bool animal::isSheep() {
-    return properties().count("sheep");
-}
-bool animal::isWolf() {
-    return properties().count("wolf");
-}
-bool animal::isMale() {
-    return properties().count("male");
+
+bool animal::hasprop(std::string a) {
+    return properties().count(a);
 }

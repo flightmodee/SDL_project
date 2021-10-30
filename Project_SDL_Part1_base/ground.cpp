@@ -28,7 +28,7 @@ for (const auto& a : animals_) {
         double dy = yB - yA;
         double distance = sqrt(dx * dx + dy * dy);
         if (distance < 100) {
-            a->interact(b.get());
+            a->interact(b.get()/*,this*/);
         }
             
     }
@@ -38,3 +38,4 @@ for (const auto& a : animals_) {
     a->draw();
   }
 }
+

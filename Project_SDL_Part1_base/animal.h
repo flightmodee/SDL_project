@@ -1,10 +1,11 @@
 //
 // Created by xplo on 27/10/2021.
 //
-
-#include "headers.h"
-
 #pragma once
+#include "headers.h"
+//#include "ground.h"
+
+
 
 class animal {
 protected:
@@ -43,8 +44,6 @@ public:
   std::set<std::string> properties() const { return properties_; };
   std::set<std::string>& properties() { return properties_; };
 
-  virtual void interact(animal* otherAnimal) = 0;
-  bool isSheep();
-  bool isWolf();
-  bool isMale();
+  virtual void interact(animal* otherAnimal/*, ground& ground*/) = 0;
+  bool animal::hasprop(std::string a);
 };
