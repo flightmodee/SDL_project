@@ -3,7 +3,6 @@
 //
 
 #include "headers.h"
-#include "animal.h"
 #include "sheep.h"
 
 sheep::sheep(const std::string& file_path, SDL_Surface* window_surface_ptr) :
@@ -20,8 +19,8 @@ void sheep::move(){
 }
 
 
-void sheep::interact(animal* otherAnimal) {
-    if (otherAnimal->isWolf()) {
+void sheep::interact(animal* otherAnimal/*,ground& ground*/) {
+    if (otherAnimal->hasprop("wolf")) {
         double vAx = this->vel_x();
         double vAy = this->vel_y();
         double vBx = otherAnimal->vel_x();
@@ -39,10 +38,11 @@ void sheep::interact(animal* otherAnimal) {
             this->vel_y() = vAy * 1, 5;
         }
     }
-    if (otherAnimal->isSheep()) {
-        if (this->isMale() && !(otherAnimal->isMale()) || !(this->isMale()) && otherAnimal->isMale()) {
-            std::cout << "LET'S MAKE BABIES <33" << std::endl;
+    if (otherAnimal->hasprop("sheep")) {
+        if (this->hasprop("female") && otherAnimal->hasprop("male") || this->hasprop("female") && otherAnimal->hasprop("male")) {
+            std::cout << "let's make babies :)" << std::endl;
             //TODO: create a sheep
+            //ground.add_animal(std::make_shared<sheep>("./media/sheep.png", window_surface_ptr_));
             
         }
     }
