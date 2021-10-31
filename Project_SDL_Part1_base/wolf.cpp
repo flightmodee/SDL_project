@@ -20,7 +20,7 @@ void wolf::move(){
 
 }
 
-void wolf::interact(animal* otherAnimal/*,ground& ground*/) {
+void wolf::interact(animal* otherAnimal,ground& ground) {
 }
 
 wolf::~wolf() {

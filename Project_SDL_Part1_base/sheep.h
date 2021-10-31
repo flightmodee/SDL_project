@@ -12,5 +12,5 @@ public:
   ~sheep() override;
   void move() override;
   // implement functions that are purely virtual in base class
-  void interact(animal* otherAnimal/*, ground& ground*/) override;
+  void interact(animal* otherAnimal, ground& ground) override;
 };

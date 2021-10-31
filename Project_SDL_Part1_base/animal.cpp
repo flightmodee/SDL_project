@@ -4,6 +4,7 @@
 
 #include "headers.h"
 #include "animal.h"
+#include "ground.h"
 
 animal::animal(const std::string &file_path, SDL_Surface *window_surface_ptr): 
     window_surface_ptr_{window_surface_ptr},

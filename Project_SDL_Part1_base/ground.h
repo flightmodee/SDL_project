@@ -5,7 +5,7 @@
 
 #include "headers.h"
 #include "Project_SDL1.h"
-#include "animal.h"
+#include "declarations.hh"
 
 class ground {
 private:
@@ -15,6 +15,6 @@ public:
   ground();
   ~ground() = default;
   void add_animal(const std::shared_ptr<animal>& a);
-  void update() const;
+  void update();
   [[nodiscard]] std::vector<std::shared_ptr<animal>> getAnimals() const;
 };

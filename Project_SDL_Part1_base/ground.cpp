@@ -4,6 +4,7 @@
 
 #include "headers.h"
 #include "ground.h"
+#include "animal.h"
 
 ground::ground() : animals_{std::vector<std::shared_ptr<animal>>()}{}
 
@@ -15,7 +16,7 @@ std::vector<std::shared_ptr<animal>> ground::getAnimals() const {
   return animals_;
 }
 
-void ground::update() const {
+void ground::update() {
 for (const auto& a : animals_) {
     int xA = a->pos_x() + (a->getw()) / 2;
     int yA = a->pos_y() + (a->geth()) / 2;
@@ -27,8 +28,8 @@ for (const auto& a : animals_) {
         double dx = xB - xA;
         double dy = yB - yA;
         double distance = sqrt(dx * dx + dy * dy);
-        if (distance < 100) {
-            a->interact(b.get()/*,this*/);
+        if (distance < 50) {
+            a->interact(b.get(),*this);
         }
             
     }
