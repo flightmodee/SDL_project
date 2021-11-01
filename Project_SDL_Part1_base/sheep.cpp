@@ -13,14 +13,16 @@ sheep::sheep(const std::string& file_path, SDL_Surface* window_surface_ptr) :
     pos_y() = frame_boundary + std::rand() % (frame_height - 2 * frame_boundary);
     vel_x() = 40 - std::rand() % 80;
     vel_y() = 40 - std::rand() % 80;
-    properties() = { "sheep","alive",gender_[rand() & 1] }; //the sheep can be a male or a female
+    properties() = { "sheep","alive",gender_[rand() & 1],"adult","offspring"}; //the sheep can be a male or a female
 }
 void sheep::move(){
     constrained_linear_move_(pos_x(), pos_y(), vel_x(), vel_y());
 }
 
 
-void sheep::interact(animal* otherAnimal,ground& ground) {
+
+
+void sheep::interact(animal* otherAnimal,ground& ground, std::vector<std::shared_ptr<animal>>& new_sheeps) {
     if (otherAnimal->hasprop("wolf")) {
         double vAx = this->vel_x();
         double vAy = this->vel_y();
@@ -42,10 +44,10 @@ void sheep::interact(animal* otherAnimal,ground& ground) {
     if (otherAnimal->hasprop("sheep")) {
         if (this->hasprop("female") && otherAnimal->hasprop("male") || this->hasprop("female") && otherAnimal->hasprop("male")) {
             std::cout << "let's make babies :)" << std::endl;
+
             //TODO: create a sheep
             auto s = std::make_shared<sheep>("./media/sheep.png", window_surface_ptr_);
-            ground.add_animal(s);
-            s->draw();
+            new_sheeps.push_back(s); 
             
         }
     }

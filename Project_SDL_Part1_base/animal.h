@@ -4,7 +4,6 @@
 #pragma once
 #include "headers.h"
 #include "declarations.hh"
-//#include "ground.h"
 
 
 
@@ -45,6 +44,6 @@ public:
   std::set<std::string> properties() const { return properties_; };
   std::set<std::string>& properties() { return properties_; };
 
-  virtual void interact(animal* otherAnimal, ground& ground) = 0;
+  virtual void interact(animal* otherAnimal, ground& ground, std::vector<std::shared_ptr<animal>>& new_sheeps) = 0;
   bool animal::hasprop(std::string a);
 };

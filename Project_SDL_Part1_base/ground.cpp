@@ -17,6 +17,7 @@ std::vector<std::shared_ptr<animal>> ground::getAnimals() const {
 }
 
 void ground::update() {
+    auto new_sheeps = std::vector<std::shared_ptr<animal>>();
 for (const auto& a : animals_) {
     int xA = a->pos_x() + (a->getw()) / 2;
     int yA = a->pos_y() + (a->geth()) / 2;
@@ -29,10 +30,14 @@ for (const auto& a : animals_) {
         double dy = yB - yA;
         double distance = sqrt(dx * dx + dy * dy);
         if (distance < 50) {
-            a->interact(b.get(),*this);
+            
+            a->interact(b.get(),*this,new_sheeps);
         }
+        
             
     }
+    for (auto s : new_sheeps)
+        animals_.push_back(s);
 }
   for (const auto& a : animals_) {
     a->move();

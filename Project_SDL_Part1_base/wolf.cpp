@@ -20,7 +20,7 @@ void wolf::move(){
 
 }
 
-void wolf::interact(animal* otherAnimal,ground& ground) {
+void wolf::interact(animal* otherAnimal,ground& ground, std::vector<std::shared_ptr<animal>>& new_sheeps) {
 }
 
 wolf::~wolf() {
