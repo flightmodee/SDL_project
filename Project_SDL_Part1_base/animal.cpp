@@ -7,12 +7,8 @@
 #include "ground.h"
 
 animal::animal(const std::string &file_path, SDL_Surface *window_surface_ptr): 
-    window_surface_ptr_{window_surface_ptr},
-    image_ptr_{ load_surface_for(file_path, window_surface_ptr) },
-    h_{image_ptr_->h},
-    w_{image_ptr_->w}
-    {
-};
+    window_surface_ptr_{window_surface_ptr}, image_ptr_{ load_surface_for(file_path, window_surface_ptr) },
+    h_{image_ptr_->h}, w_{image_ptr_->w}, timer_(std::chrono::system_clock::now()){}
 
 void animal::draw() const{
 
@@ -36,3 +32,8 @@ void animal::draw() const{
 bool animal::hasprop(std::string a) {
     return properties().count(a);
 }
+
+std::chrono::time_point<std::chrono::system_clock>& animal::getTimer(){
+    return timer_;
+};
+
