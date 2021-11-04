@@ -27,7 +27,6 @@ void ground::update(){
     double xA = a->pos_x() + (a->getw()) / 2;
     double yA = a->pos_y() + (a->geth()) / 2;
 
-    if (a->hasprop("wolf")){
 
       for (int j = 0; j < animals_.size(); ++j){
 
@@ -45,8 +44,8 @@ void ground::update(){
           if (distance < 50)
             a->interact(b, *this);
       }
-    }
   }
+
   for (auto &c : animals_) {
     c->move();
     c->draw();
