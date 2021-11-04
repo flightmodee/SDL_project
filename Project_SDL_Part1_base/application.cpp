@@ -2,6 +2,7 @@
 // Created by xplo on 27/10/2021.
 //
 
+#include "headers.h"
 #include "application.h"
 #include "animal.h"
 #include "ground.h"
@@ -22,8 +23,11 @@ application::application(unsigned int n_sheep, unsigned int n_wolf) {
   //SDL_Event e;
   //window_event_ = e;
 
-  std::string sheep_path = "./media/sheep.png";
-  std::string wolf_path = "./media/wolf.png";
+  std::string sheep_path = "/home/xplo/ESIEE/cpp/Project_SDL_Part1_ABDOUCHE/media/sheep.png";
+  std::string wolf_path = "/home/xplo/ESIEE/cpp/Project_SDL_Part1_ABDOUCHE/media/wolf.png";
+
+  //std::string sheep_path = "./media/sheep.png";
+  //std::string wolf_path = "./media/wolf.png";
 
   //let's make things colorful.
   SDL_FillRect(window_surface_ptr_ ,nullptr, SDL_MapRGB(window_surface_ptr_->format,0,127,0));
