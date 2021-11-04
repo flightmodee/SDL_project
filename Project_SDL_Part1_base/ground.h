@@ -17,4 +17,5 @@ public:
   void add_animal(const std::shared_ptr<animal>& a);
   void update();
   [[nodiscard]] std::vector<std::shared_ptr<animal>> getAnimals() const;
+  std::vector<std::shared_ptr<animal>>& getAnimals();
 };

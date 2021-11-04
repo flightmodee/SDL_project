@@ -19,7 +19,7 @@ std::vector<std::shared_ptr<animal>> ground::getAnimals() const {
 void ground::update(){
 
 
-  std::shared_ptr<animal> a, b, c;
+  std::shared_ptr<animal> a, b;
 
   for (int i = 0; i < animals_.size(); ++i){
 
@@ -41,7 +41,7 @@ void ground::update(){
         double dy = yB - yA;
         double distance = sqrt(dx * dx + dy * dy);
 
-          if (distance < 50)
+          if (distance < 30)
             a->interact(b, *this);
       }
   }
