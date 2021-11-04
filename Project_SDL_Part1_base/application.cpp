@@ -4,7 +4,6 @@
 
 #include "headers.h"
 #include "application.h"
-#include "animal.h"
 #include "ground.h"
 #include "sheep.h"
 #include "wolf.h"
