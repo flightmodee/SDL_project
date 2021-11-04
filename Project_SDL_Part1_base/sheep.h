@@ -15,5 +15,4 @@ public:
   // implement functions that are purely virtual in base class
   //void interact(animal* otherAnimal, std::vector<std::shared_ptr<animal>>& new_sheeps ) override;
   void interact(std::shared_ptr<animal> otherAnimal, ground& ground) override;
-  [[nodiscard]] std::chrono::time_point<std::chrono::system_clock>& getTimer();
 };
