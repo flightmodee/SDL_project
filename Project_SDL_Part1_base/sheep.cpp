@@ -14,14 +14,10 @@ sheep::sheep(const std::string& file_path, SDL_Surface* window_surface_ptr) : an
     vel_x_ = 40 - std::rand() % 80;
     vel_y_ = 40 - std::rand() % 80;
     properties_ = { "sheep",gender[rand() & 1],"adult"}; //the sheep can be a male or a female
-    sexTimer_ = 0;
-
 }
 void sheep::move(){
     constrained_linear_move_(pos_x(), pos_y(), vel_x(), vel_y());
 }
-
-
 
 
 void sheep::interact(std::shared_ptr<animal> otherAnimal, ground& ground) {
@@ -44,19 +40,25 @@ void sheep::interact(std::shared_ptr<animal> otherAnimal, ground& ground) {
             this->vel_y() = vAy * 1.5;
         }
     }*/
-    /*if (otherAnimal->hasprop("sheep")) {
+    if (otherAnimal->hasprop("sheep")) {
         if (this->hasprop("female") && otherAnimal->hasprop("male") || this->hasprop("female") && otherAnimal->hasprop("male")) {
+          auto end = std::chrono::system_clock::now();
+          auto first_delay = std::chrono::duration_cast<std::chrono::seconds>(end - timer_).count();
+          auto second_delay = std::chrono::duration_cast<std::chrono::seconds>(end - otherAnimal->getTimer()).count();
+          std::cout << first_delay << " " << second_delay << std::endl;
+          if (first_delay > 2 && second_delay > 2){
             std::cout << "let's make babies :)" << std::endl;
 
             //TODO: create a sheep
             auto s = std::make_shared<sheep>("/home/xplo/ESIEE/cpp/Project_SDL_Part1_ABDOUCHE/media/sheep.png", window_surface_ptr_);
             ground.getAnimals().push_back(s);
-            //auto s = std::make_shared<sheep>("./media/sheep.png", window_surface_ptr_);
+            timer_ = std::chrono::system_clock::now();
+            otherAnimal->getTimer() = timer_;
+          }
+
 
         }
-    }*/
-
-
+    }
 
 }
 
@@ -64,3 +66,4 @@ sheep::~sheep() {
   SDL_FreeSurface(image_ptr_);
   std::cout << "Oh me, oh my, a sheep has been destroyed, whatever shall we do?" << std::endl;
 }
+
