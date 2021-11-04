@@ -7,26 +7,39 @@
 #include "ground.h"
 #include "sheep.h"
 #include "wolf.h"
+#include "shepherd.h"
 
-application::application(unsigned int n_sheep, unsigned int n_wolf) {
+application::application(unsigned int n_sheep, unsigned int n_wolf): 
+    zoo_ground_(),
+    last_ticks_(SDL_GetTicks()) {
+
+    window_ptr_ =
+        SDL_CreateWindow("My Zoo", SDL_WINDOWPOS_CENTERED,
+            SDL_WINDOWPOS_CENTERED, frame_width, frame_height, 0);
+    if (!window_ptr_)
+        throw std::runtime_error("application::application():" + std::string(SDL_GetError()));
+
+    window_surface_ptr_ = SDL_GetWindowSurface(window_ptr_);
+
+    if (!window_surface_ptr_)
+        throw std::runtime_error("application::application():" + std::string(SDL_GetError()));
+    zoo_ground_.set_ptr(window_surface_ptr_);
+
 
   srand((unsigned)time(nullptr));
 
-  window_ptr_ = SDL_CreateWindow("My Zoo", SDL_WINDOWPOS_CENTERED,
-                                 SDL_WINDOWPOS_CENTERED, frame_width, frame_height, 0);
-
-  window_surface_ptr_ = SDL_GetWindowSurface(window_ptr_);
-
-  zoo_ground_ = ground();
 
   //SDL_Event e;
   //window_event_ = e;
 
   std::string sheep_path = "./media/sheep.png";
   std::string wolf_path = "./media/wolf.png";
+  std::string shepherd_path = "./media/shepherd.png";
 
   //let's make things colorful.
   SDL_FillRect(window_surface_ptr_ ,nullptr, SDL_MapRGB(window_surface_ptr_->format,0,127,0));
+
+  zoo_ground_.set_ptr(window_surface_ptr_);
 
   for (int i = 0; i < n_sheep; i++) {
     auto s = std::make_shared<sheep>(sheep_path, window_surface_ptr_);
@@ -39,6 +52,10 @@ application::application(unsigned int n_sheep, unsigned int n_wolf) {
     zoo_ground_.add_animal(s);
     s->draw();
   }
+  auto s = std::make_shared<shepherd>(shepherd_path,window_surface_ptr_);
+  zoo_ground_.add_animal(s);
+  s->draw();
+
   SDL_UpdateWindowSurface(window_ptr_);
 
 }

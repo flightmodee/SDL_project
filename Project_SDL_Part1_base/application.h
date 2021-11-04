@@ -11,7 +11,9 @@ private:
   SDL_Window* window_ptr_;
   SDL_Surface* window_surface_ptr_;
   SDL_Event window_event_;
+
   ground zoo_ground_;
+  unsigned last_ticks_;
 
 public:
   application(unsigned n_sheep, unsigned n_wolf); // Ctor
