@@ -8,11 +8,12 @@
 
 
 wolf::wolf(const std::string& file_path, SDL_Surface* window_surface_ptr) : animal(file_path, window_surface_ptr){
-    pos_x() = frame_boundary + std::rand() % (frame_width - 2 * frame_boundary);
-    pos_y() = frame_boundary + std::rand() % (frame_height - 2 * frame_boundary);
-    vel_x() = 40 - std::rand() % 80;
-    vel_y() = 40 - std::rand() % 80;
-    properties() = { "wolf","alive" };
+
+    properties_ = {"wolf", "adult"};
+    pos_x_ = frame_boundary + std::rand() % (frame_width - 2 * frame_boundary);
+    pos_y_ = frame_boundary + std::rand() % (frame_height - 2 * frame_boundary);
+    vel_x_ = 40 - std::rand() % 80;
+    vel_y_ = 40 - std::rand() % 80;
 }
 
 
