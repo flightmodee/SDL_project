@@ -9,14 +9,16 @@
 
 //We'll only set the timer if the newly-created sheep is a female.
 //Male sheep do not need, at first, to have their timer set.
-sheep::sheep(const std::string& file_path, SDL_Surface* window_surface_ptr) : animal(file_path, window_surface_ptr){
+sheep::sheep(const std::string& file_path, SDL_Surface* window_surface_ptr, std::set<std::string> properties)
+    : animal(file_path, window_surface_ptr) {
 
+    properties_ = std::move(properties);
     std::string gender[2] = { "male","female" };
     pos_x_ = frame_boundary + std::rand() % (frame_width - 2 * frame_boundary);
     pos_y_ = frame_boundary + std::rand() % (frame_height - 2 * frame_boundary);
     vel_x_ = 40 - std::rand() % 80;
     vel_y_ = 40 - std::rand() % 80;
-    properties_ = { "sheep",gender[rand() & 1],"adult"}; //the sheep can be a male or a female
+    properties_.insert(gender[rand() & 1]); //the sheep can be a male or a female
 
     //We'll only set a timer for the female sheep, on their creation
     //We'll also add a special property which will be used in the context of
@@ -39,6 +41,16 @@ animal* sheep::whoIsFemale(const std::shared_ptr<animal>& otherAnimal){
     return (this);
   else
     throw std::runtime_error("This shouldn't have happened at all.\n");
+}
+
+void sheep::copyProperties(animal* a){
+
+  a->pos_x() = pos_x_;
+  a->pos_y() = pos_y_;
+  a->vel_x() = vel_x_;
+  a->vel_y() = vel_y_;
+  a->getw() = w_;
+  a->geth() = h_;
 }
 
 void sheep::interact(std::shared_ptr<animal> otherAnimal, ground& ground) {
@@ -68,11 +80,12 @@ void sheep::interact(std::shared_ptr<animal> otherAnimal, ground& ground) {
           auto now = std::chrono::system_clock::now();
           auto delay = std::chrono::duration_cast<std::chrono::seconds>(now - female->getTimer()).count();
 
-          std::cout << delay << std::endl;
           if (delay > 10 || female->properties().count("just_spawned")){
             std::cout << "let's make babies :)" << std::endl;
 
-            auto s = std::make_shared<sheep>("/home/xplo/ESIEE/cpp/Project_SDL_Part1_ABDOUCHE/media/sheep.png", window_surface_ptr_);
+
+            auto set = std::set<std::string>{"sheep", "lamb"};
+            auto s = std::make_shared<sheep>("/home/xplo/ESIEE/cpp/Project_SDL_Part1_ABDOUCHE/media/sheep.png", window_surface_ptr_, set);
             ground.getAnimals().push_back(s);
             female->getTimer() = std::chrono::system_clock::now();
             if (female->properties().count("just_spawned"))
