@@ -23,8 +23,10 @@ void wolf::move(){
 
 void wolf::interact(std::shared_ptr<animal> otherAnimal, ground& ground) {
 
-  std::vector<std::shared_ptr<animal>>& v = ground.getAnimals();
-  v.erase(std::remove(v.begin(), v.end(), otherAnimal), v.end());
+  if (otherAnimal->hasProp("sheep")) {
+    std::vector<std::shared_ptr<animal>> &v = ground.getAnimals();
+    v.erase(std::remove(v.begin(), v.end(), otherAnimal), v.end());
+  }
 
 }
 wolf::~wolf() {
