@@ -43,7 +43,10 @@ public:
   double& vel_y() { return vel_y_; };
 
   int getw() const { return  w_; };
+  int& getw() {return w_;};
   int geth() const { return h_; };
+  int& geth() { return h_; };
+
 
   std::set<std::string> properties() const { return properties_; };
   std::set<std::string>& properties() { return properties_; };
