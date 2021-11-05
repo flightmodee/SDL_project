@@ -27,7 +27,7 @@ protected:
  
 
 public:
-  animal(const std::string& file_path, SDL_Surface* window_surface_ptr);
+  animal(const std::string& file_path, SDL_Surface* window_surface_ptr, std::set<std::string> properties);
   virtual ~animal() = default;
 
   void draw() const;
@@ -51,7 +51,6 @@ public:
   std::set<std::string> properties() const { return properties_; };
   std::set<std::string>& properties() { return properties_; };
 
-  //virtual void interact(animal* otherAnimal, std::vector<std::shared_ptr<animal>>& new_sheeps) = 0;
   virtual void interact(std::shared_ptr<animal> otherAnimal, ground& ground) = 0;
   bool hasProp(std::string a);
 
