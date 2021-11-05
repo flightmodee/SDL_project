@@ -53,6 +53,14 @@ void sheep::copyProperties(animal* a){
   a->geth() = h_;
 }
 
+bool sheep::canMakeBabies(const std::shared_ptr<animal>& otherAnimal){
+  if (this->hasProp("female") && otherAnimal->hasProp("male") || this->hasProp("female") && otherAnimal->hasProp("male"))
+    if (!this->hasProp("lamb") && !otherAnimal->hasProp("lamb"))
+      return (true);
+
+  return (false);
+}
+
 void sheep::interact(std::shared_ptr<animal> otherAnimal, ground& ground) {
     /*if (otherAnimal->hasprop("wolf")) {
         double vAx = this->vel_x();
@@ -74,7 +82,7 @@ void sheep::interact(std::shared_ptr<animal> otherAnimal, ground& ground) {
         }
     }*/
     if (otherAnimal->hasProp("sheep")) {
-        if (this->hasProp("female") && otherAnimal->hasProp("male") || this->hasProp("female") && otherAnimal->hasProp("male")) {
+        if (this->canMakeBabies(otherAnimal)){
 
           auto female = this->whoIsFemale(otherAnimal);
           auto now = std::chrono::system_clock::now();
