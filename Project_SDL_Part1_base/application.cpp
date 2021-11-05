@@ -31,8 +31,9 @@ application::application(unsigned int n_sheep, unsigned int n_wolf) {
   //let's make things colorful.
   SDL_FillRect(window_surface_ptr_ ,nullptr, SDL_MapRGB(window_surface_ptr_->format,0,127,0));
 
+  auto sheep_prop = std::set<std::string>{"sheep", "adult"};
   for (int i = 0; i < n_sheep; i++) {
-    auto s = std::make_shared<sheep>(sheep_path, window_surface_ptr_);
+    auto s = std::make_shared<sheep>(sheep_path, window_surface_ptr_, sheep_prop);
     zoo_ground_.add_animal(s);
     s->draw();
   }
