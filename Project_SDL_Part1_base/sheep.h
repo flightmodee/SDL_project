@@ -14,6 +14,6 @@ public:
   void move() override;
   void interact(std::shared_ptr<animal> otherAnimal, ground& ground) override;
   animal* whoIsFemale(const std::shared_ptr<animal> &otherAnimal);
-  void copyProperties(animal *a);
+  void copyProperties(std::shared_ptr<animal> a);
   bool canMakeBabies(const std::shared_ptr<animal>& otherAnimal);
 };

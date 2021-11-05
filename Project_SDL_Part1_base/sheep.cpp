@@ -44,14 +44,11 @@ animal* sheep::whoIsFemale(const std::shared_ptr<animal>& otherAnimal){
     throw std::runtime_error("This shouldn't have happened at all.\n");
 }
 
-void sheep::copyProperties(animal* a){
-
-  a->pos_x() = pos_x_;
-  a->pos_y() = pos_y_;
+void sheep::copyProperties(std::shared_ptr<animal> a){
+  a->pos_x() = pos_x_ + 50;
+  a->pos_y() = pos_y_ + 50;
   a->vel_x() = vel_x_;
   a->vel_y() = vel_y_;
-  a->getw() = w_;
-  a->geth() = h_;
 }
 
 bool sheep::canMakeBabies(const std::shared_ptr<animal>& otherAnimal){
@@ -95,6 +92,7 @@ void sheep::interact(std::shared_ptr<animal> otherAnimal, ground& ground) {
 
             auto set = std::set<std::string>{"sheep", "lamb"};
             auto s = std::make_shared<sheep>("/home/xplo/ESIEE/cpp/Project_SDL_Part1_ABDOUCHE/media/lamb.png", window_surface_ptr_, set);
+            copyProperties(s);
             ground.getAnimals().push_back(s);
             female->getTimer() = std::chrono::system_clock::now();
             if (female->properties().count("just_spawned"))
