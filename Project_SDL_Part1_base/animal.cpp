@@ -6,6 +6,8 @@
 #include "animal.h"
 #include "ground.h"
 
+constexpr unsigned int distanceFromMommy = 50;
+
 animal::animal(const std::string &file_path, SDL_Surface *window_surface_ptr):
     window_surface_ptr_{window_surface_ptr}, image_ptr_{ load_surface_for(file_path, window_surface_ptr) },
     h_{image_ptr_->h}, w_{image_ptr_->w}{}
@@ -33,12 +35,14 @@ bool animal::hasProp(std::string a) {
     return properties().count(a);
 }
 
-void animal::copyProperties(std::shared_ptr<animal> a) const{
-  a->pos_x() = pos_x_ + 50;
-  a->pos_y() = pos_y_ + 50;
-  a->vel_x() = vel_x_;
-  a->vel_y() = vel_y_;
+void animal::copyMommyProperties(animal* mom){
+  pos_x_ = mom->pos_x_ + distanceFromMommy;
+  pos_y_ = mom->pos_y_ + distanceFromMommy;
+  vel_x_ = mom->vel_x_;
+  vel_y_ = mom->vel_y_;
 }
+
+
 
 std::chrono::time_point<std::chrono::system_clock>& animal::getTimer(){
     return timer_;
