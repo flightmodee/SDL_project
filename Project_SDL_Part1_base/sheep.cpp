@@ -13,7 +13,7 @@ sheep::sheep(const std::string& file_path, SDL_Surface* window_surface_ptr, std:
     : animal(file_path, window_surface_ptr) {
 
     properties_ = std::move(properties);
-    std::string gender[2] = { "male","female" };
+    std::string gender[2] = {"male", "female"};
     pos_x_ = frame_boundary + std::rand() % (frame_width - 2 * frame_boundary);
     pos_y_ = frame_boundary + std::rand() % (frame_height - 2 * frame_boundary);
     vel_x_ = 40 - std::rand() % 80;
@@ -22,8 +22,8 @@ sheep::sheep(const std::string& file_path, SDL_Surface* window_surface_ptr, std:
 
     //We'll only set a timer for the female sheep, on their creation
     //We'll also add a special property which will be used in the context of
-    //sheep x sheep interactions
-    if (properties_.count("female")) {
+    //sheep x sheep interaction
+    if (properties_.count("female") && !properties_.count("lamb")) {
       timer_ = std::chrono::system_clock::now();
       properties_.insert("just_spawned");
     }
