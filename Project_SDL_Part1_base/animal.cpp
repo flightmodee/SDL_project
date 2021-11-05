@@ -6,7 +6,7 @@
 #include "animal.h"
 #include "ground.h"
 
-animal::animal(const std::string &file_path, SDL_Surface *window_surface_ptr): 
+animal::animal(const std::string &file_path, SDL_Surface *window_surface_ptr):
     window_surface_ptr_{window_surface_ptr}, image_ptr_{ load_surface_for(file_path, window_surface_ptr) },
     h_{image_ptr_->h}, w_{image_ptr_->w}{}
 
@@ -25,7 +25,7 @@ void animal::draw() const{
   pos.y = (int)pos_y();
   pos.h = geth();
   pos.w = getw();
-  SDL_BlitScaled(image_ptr_, NULL, window_surface_ptr_, &pos);
+  SDL_BlitScaled(image_ptr_, nullptr, window_surface_ptr_, &pos);
 }
 
 
