@@ -19,15 +19,17 @@ protected:
   double vel_y_;
   int w_;
   int h_;
-  //This set is used to provide properties for our animals: their gender, for example.
+  //This set is used to provide properties for our animals: their gender, for example, or whether or not they're old enough
+  //to procreate (basically "adult" or "lamb" properties, for our sheep).
   std::set<std::string> properties_;
-  //
+  //some animal behaviors are defined by time constraints. Therefore,
+  //we'll use some sort of timer to implement said constraints.
   std::chrono::time_point<std::chrono::system_clock> timer_;
 
  
 
 public:
-  animal(const std::string& file_path, SDL_Surface* window_surface_ptr, std::set<std::string> properties);
+  animal(const std::string& file_path, SDL_Surface* window_surface_ptr);
   virtual ~animal() = default;
 
   void draw() const;
