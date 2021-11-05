@@ -88,7 +88,7 @@ void sheep::interact(std::shared_ptr<animal> otherAnimal, ground& ground) {
             auto set = std::set<std::string>{"sheep", "lamb"};
             auto s = std::make_shared<sheep>("/home/xplo/ESIEE/cpp/Project_SDL_Part1_ABDOUCHE/media/lamb.png", window_surface_ptr_, set);
             //the lamb will follow his mother
-            female->copyProperties(s);
+            s->copyMommyProperties(female);
             ground.getAnimals().push_back(s);
             female->getTimer() = std::chrono::system_clock::now();
             if (female->properties().count("just_spawned"))
