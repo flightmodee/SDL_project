@@ -19,7 +19,9 @@ protected:
   double vel_y_;
   int w_;
   int h_;
-  std::set<std::string> properties_; //This set ise used to know more about the type, the status (alive or dead) of the animal
+  //This set is used to provide properties for our animals: their gender, for example.
+  std::set<std::string> properties_;
+  //
   std::chrono::time_point<std::chrono::system_clock> timer_;
 
  
@@ -48,7 +50,7 @@ public:
 
   //virtual void interact(animal* otherAnimal, std::vector<std::shared_ptr<animal>>& new_sheeps) = 0;
   virtual void interact(std::shared_ptr<animal> otherAnimal, ground& ground) = 0;
-  bool hasprop(std::string a);
+  bool hasProp(std::string a);
 
   [[nodiscard]] std::chrono::time_point<std::chrono::system_clock>& getTimer();
 
