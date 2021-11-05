@@ -6,6 +6,7 @@
 #include "sheep.h"
 #include "ground.h"
 
+constexpr unsigned int sexFreeDuration = 10;
 
 //We'll only set the timer if the newly-created sheep is a female.
 //Male sheep do not need, at first, to have their timer set.
@@ -88,7 +89,7 @@ void sheep::interact(std::shared_ptr<animal> otherAnimal, ground& ground) {
           auto now = std::chrono::system_clock::now();
           auto delay = std::chrono::duration_cast<std::chrono::seconds>(now - female->getTimer()).count();
 
-          if (delay > 10 || female->properties().count("just_spawned")){
+          if (delay > sexFreeDuration || female->properties().count("just_spawned")){
             std::cout << "let's make babies :)" << std::endl;
 
 
