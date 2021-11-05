@@ -58,4 +58,5 @@ public:
 
   [[nodiscard]] std::chrono::time_point<std::chrono::system_clock>& getTimer();
 
+  void copyProperties(std::shared_ptr<animal> a) const;
 };

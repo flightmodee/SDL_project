@@ -33,6 +33,13 @@ bool animal::hasProp(std::string a) {
     return properties().count(a);
 }
 
+void animal::copyProperties(std::shared_ptr<animal> a) const{
+  a->pos_x() = pos_x_ + 50;
+  a->pos_y() = pos_y_ + 50;
+  a->vel_x() = vel_x_;
+  a->vel_y() = vel_y_;
+}
+
 std::chrono::time_point<std::chrono::system_clock>& animal::getTimer(){
     return timer_;
 };
