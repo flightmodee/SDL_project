@@ -5,11 +5,13 @@
 
 #include "headers.h"
 #include "Project_SDL1.h"
+#include "sheep.h"
 #include "declarations.hh"
 
 class ground {
 private:
   std::vector<std::shared_ptr<animal>> animals_;
+  std::vector<std::shared_ptr<sheep>> lambs_;
 
 public:
   ground();
@@ -18,4 +20,8 @@ public:
   void update();
   [[nodiscard]] std::vector<std::shared_ptr<animal>> getAnimals() const;
   std::vector<std::shared_ptr<animal>>& getAnimals();
+  std::vector<std::shared_ptr<sheep>> getLambs() const;
+  std::vector<std::shared_ptr<sheep>>& getLambs();
+
+
 };
