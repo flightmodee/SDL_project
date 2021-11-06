@@ -47,4 +47,6 @@ void animal::copyMommyProperties(animal* mom){
 std::chrono::time_point<std::chrono::system_clock>& animal::getTimer(){
     return timer_;
 }
-
+void animal::move() {
+    constrained_linear_move_(pos_x(), pos_y(), vel_x(), vel_y());
+}

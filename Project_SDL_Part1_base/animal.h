@@ -20,7 +20,7 @@ public:
 
   void draw() const;
 
-  virtual void move() = 0;
+  void move() override;
 
   [[nodiscard]] std::chrono::time_point<std::chrono::system_clock>& getTimer();
 
