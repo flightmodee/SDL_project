@@ -17,8 +17,15 @@ void rendered_object::setSurface(const std::string& path, SDL_Surface *newSurfac
   window_surface_ptr_ = load_surface_for(path, newSurface);
 }
 
+
+void rendered_object::setDimensions(int width, int height) {
+  image_ptr_->w = width;
+  image_ptr_->h = height;
+}
+
 unsigned int rendered_object::pos_x() const { return pos_x_; }
 unsigned int& rendered_object::pos_x() { return pos_x_; }
 unsigned int rendered_object::pos_y() const { return pos_y_; }
 unsigned int& rendered_object::pos_y() { return pos_y_; }
+
 

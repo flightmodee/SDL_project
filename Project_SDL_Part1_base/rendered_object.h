@@ -24,5 +24,6 @@ public:
   unsigned int& pos_x();
   unsigned int pos_y() const;
   unsigned int& pos_y();
+  void setDimensions(int width, int height);
 
 };
