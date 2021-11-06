@@ -29,6 +29,7 @@ sheep::sheep(const std::string& file_path, SDL_Surface* window_surface_ptr, std:
       properties_.insert("just_spawned");
     }
 }
+
 void sheep::move(){
     constrained_linear_move_(pos_x(), pos_y(), vel_x(), vel_y());
 }
@@ -87,9 +88,16 @@ void sheep::interact(std::shared_ptr<animal> otherAnimal, ground& ground) {
 
             auto set = std::set<std::string>{"sheep", "lamb"};
             auto s = std::make_shared<sheep>("/home/xplo/ESIEE/cpp/Project_SDL_Part1_ABDOUCHE/media/lamb.png", window_surface_ptr_, set);
+
+            //We'll set a timer for our newly created lamb, so that after a certain amount of time, it
+            //grows into a strong sheep
+            s->getTimer() = std::chrono::system_clock::now();
             //the lamb will follow his mother
             s->copyMommyProperties(female);
-            ground.getAnimals().push_back(s);
+
+            ground.add_animal(s);
+
+            //resetting the female's timer
             female->getTimer() = std::chrono::system_clock::now();
             if (female->properties().count("just_spawned"))
               female->properties().erase("just_spawned");
@@ -102,4 +110,3 @@ sheep::~sheep() {
   SDL_FreeSurface(image_ptr_);
   std::cout << "Oh me, oh my, a sheep has been destroyed, whatever shall we do?" << std::endl;
 }
-

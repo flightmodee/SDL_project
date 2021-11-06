@@ -23,8 +23,8 @@ void animal::draw() const{
   Uint32 color_key = SDL_MapRGB(image_ptr_->format, 0, 0, 0);
   SDL_SetColorKey(image_ptr_, SDL_TRUE, color_key);
   SDL_Rect pos;
-  pos.x = (int)pos_x();
-  pos.y = (int)pos_y();
+  pos.x = (int)pos_x_;
+  pos.y = (int)pos_y_;
   pos.h = geth();
   pos.w = getw();
   SDL_BlitScaled(image_ptr_, nullptr, window_surface_ptr_, &pos);
@@ -40,11 +40,20 @@ void animal::copyMommyProperties(animal* mom){
   pos_y_ = mom->pos_y_ + distanceFromMommy;
   vel_x_ = mom->vel_x_;
   vel_y_ = mom->vel_y_;
+  w_ = mom->getw()/1.5;
+  h_ = mom->getw()/1.5;
+
 }
 
 
 
 std::chrono::time_point<std::chrono::system_clock>& animal::getTimer(){
     return timer_;
+}
+
+animal::animal(const animal &a): window_surface_ptr_{a.window_surface_ptr_}, image_ptr_{a.image_ptr_}, h_{image_ptr_->h}, w_{image_ptr_->w} {}
+
+SDL_Surface*& animal::getImageSurface() {
+    return image_ptr_;
 };
 

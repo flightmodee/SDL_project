@@ -6,9 +6,7 @@
 #include "animal.h"
 #include "headers.h"
 
-ground::ground() : animals_{std::vector<std::shared_ptr<animal>>()}{
-  lambs_ = std::vector<std::shared_ptr<sheep>>();
-}
+ground::ground() : animals_{std::vector<std::shared_ptr<animal>>()} {}
 
 void ground::add_animal(const std::shared_ptr<animal>& a) {
   animals_.push_back(a);
@@ -55,14 +53,7 @@ void ground::update(){
 
 }
 
-
-
 std::vector<std::shared_ptr<animal>>& ground::getAnimals() {
   return animals_;
 }
-std::vector<std::shared_ptr<sheep>> ground::getLambs() const {
-  return lambs_;
-}
-std::vector<std::shared_ptr<sheep>> &ground::getLambs() {
-  return lambs_;
-}
+

@@ -13,6 +13,8 @@ protected:
                                     // animal to be drawn, also non-owning
   SDL_Surface* image_ptr_; // The texture of the sheep (the loaded image), use
                                     // load_surface_for
+
+
   double pos_x_;
   double pos_y_;
   double vel_x_;
@@ -30,6 +32,7 @@ protected:
 
 public:
   animal(const std::string& file_path, SDL_Surface* window_surface_ptr);
+  animal(const animal& a);
   virtual ~animal() = default;
 
   void draw() const;
@@ -59,4 +62,7 @@ public:
   [[nodiscard]] std::chrono::time_point<std::chrono::system_clock>& getTimer();
 
   void copyMommyProperties(animal* mom);
+
+  SDL_Surface*& getImageSurface();
+
 };
