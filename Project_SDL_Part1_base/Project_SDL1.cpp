@@ -1,15 +1,18 @@
 #include "headers.h"
-#include <algorithm>
 #include <cstdlib>
 #include <string>
 #include <fstream>
-#include <ctime>
 using namespace std;
 
 void init() {
   // Initialize SDL
+
+
   if (SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO) < 0)
     throw std::runtime_error("init():" + std::string(SDL_GetError()));
+
+  if (TTF_Init() == -1)
+    throw std::runtime_error(reinterpret_cast<const char *>(TTF_GetError));
 
   // Initialize PNG loading
   int imgFlags = IMG_INIT_PNG;
@@ -17,6 +20,7 @@ void init() {
     throw std::runtime_error("init(): SDL_image could not initialize! "
                              "SDL_image Error: " +
                              std::string(IMG_GetError()));
+
 }
 
 SDL_Surface* load_surface_for(const std::string& path, SDL_Surface* window_surface_ptr) {
@@ -39,15 +43,15 @@ SDL_Surface* load_surface_for(const std::string& path, SDL_Surface* window_surfa
   return (surf);
 }
 
-void constrained_linear_move_(double& x, double& y, double& vx, double& vy) {
+void constrained_linear_move_(unsigned int& x, unsigned int& y, int& vx, int& vy) {
     x += (frame_time * vx);
     y += (frame_time * vy);
 
     // Enforce boundaries
-    constexpr double h_m = frame_boundary;
-    constexpr double w_m = frame_boundary;
-    constexpr double h_M = frame_height - frame_boundary;
-    constexpr double w_M = frame_width - frame_boundary;
+    constexpr int h_m = frame_boundary;
+    constexpr int w_m = frame_boundary;
+    constexpr int h_M = frame_height - frame_boundary;
+    constexpr int w_M = frame_width - frame_boundary;
 
     if (x < w_m) {
         x = w_m;
