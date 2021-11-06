@@ -25,3 +25,9 @@ std::set<std::string> interacting_object::getProperties() const {
 std::set<std::string>& interacting_object::getProperties(){
   return properties_;
 }
+bool interacting_object::hasProperty(std::string property) {
+  if (properties_.count(property))
+    return (true);
+  else
+    return (false);
+}

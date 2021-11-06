@@ -17,6 +17,7 @@ public:
   virtual void interact(std::shared_ptr<interacting_object> otherObject) = 0;
   void addProperty(std::string property);
   bool deleteProperty(std::string property);
+  bool hasProperty(std::string property);
   [[nodiscard]] std::set<std::string> getProperties() const;
   std::set<std::string>& getProperties();
 };
