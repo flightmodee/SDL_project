@@ -45,9 +45,10 @@ void sheep::interact(animal* otherAnimal,ground& ground, std::vector<std::shared
         if (this->hasprop("female") && otherAnimal->hasprop("male") || this->hasprop("female") && otherAnimal->hasprop("male")) {
             std::cout << "let's make babies :)" << std::endl;
 
-            //TODO: create a sheep
-            auto s = std::make_shared<sheep>("./media/sheep.png", window_surface_ptr_);
-            new_sheeps.push_back(s); 
+            //TODO: Resolve the problem :D
+            auto s = std::make_shared<sheep>("./media/lamb.png", window_surface_ptr_);
+            /*new_sheeps.push_back(s); */
+            ground.add_animal(s);
             
         }
     }

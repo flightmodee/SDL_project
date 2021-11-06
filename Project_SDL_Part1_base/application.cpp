@@ -8,6 +8,7 @@
 #include "sheep.h"
 #include "wolf.h"
 #include "shepherd.h"
+#include "shepherd_dog.h"
 
 application::application(unsigned int n_sheep, unsigned int n_wolf): 
     zoo_ground_(),
@@ -35,6 +36,7 @@ application::application(unsigned int n_sheep, unsigned int n_wolf):
   std::string sheep_path = "./media/sheep.png";
   std::string wolf_path = "./media/wolf.png";
   std::string shepherd_path = "./media/shepherd.png";
+  std::string dog_path = "./media/doggo.png";
 
   //let's make things colorful.
   SDL_FillRect(window_surface_ptr_ ,nullptr, SDL_MapRGB(window_surface_ptr_->format,0,127,0));
@@ -55,6 +57,10 @@ application::application(unsigned int n_sheep, unsigned int n_wolf):
   auto s = std::make_shared<shepherd>(shepherd_path,window_surface_ptr_);
   zoo_ground_.add_animal(s);
   s->draw();
+
+  auto a = std::make_shared<shepherd_dog>(dog_path, window_surface_ptr_,s.get());
+  zoo_ground_.add_animal(a);
+  a->draw();
 
   SDL_UpdateWindowSurface(window_ptr_);
 

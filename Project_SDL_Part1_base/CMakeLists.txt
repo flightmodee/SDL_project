@@ -22,7 +22,7 @@ IF(WIN32)
   include_directories(${SDL2IMAGE_INCLUDE_DIRS})
   link_directories(${SDL2_LINK_DIRS}, ${SDL2IMAGE_LINK_DIRS})
 
-  add_executable(SDL_part1 main.cpp Project_SDL1.cpp wolf.cpp application.cpp animal.cpp sheep.cpp ground.cpp)
+  add_executable(SDL_part1 main.cpp Project_SDL1.cpp wolf.cpp application.cpp animal.cpp sheep.cpp ground.cpp "shepherd.cpp" "shepherd.h" "shepherd_dog.cpp" "shepherd_dog.h")
   target_link_libraries(SDL_part1 PUBLIC SDL2 SDL2main SDL2_image)
 ELSE()
   message(STATUS "Building for Linux or Mac")
