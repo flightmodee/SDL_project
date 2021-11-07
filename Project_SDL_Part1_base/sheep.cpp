@@ -76,6 +76,7 @@ void sheep::interact(std::shared_ptr<moving_object> otherObject, double distance
 
 void sheep::evolve() {
 
+
   if (hasProperty("lamb")){
     image_ptr_ = load_surface_for(samy_sheep_path.data(), window_surface_ptr_);
     //the lamb now part ways with its mother, how sad
