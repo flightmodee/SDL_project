@@ -5,18 +5,13 @@
 #include "headers.h"
 #include "application.h"
 #include "ground.h"
+#include "animal.h"
 #include "sheep.h"
 #include "wolf.h"
 
-constexpr unsigned int childhoodDuration = 5;
-constexpr std::string_view samy_sheep_path = "/home/xplo/ESIEE/cpp/Project_SDL_Part1_ABDOUCHE/media/sheep.png";
-constexpr std::string_view samy_wolf_path = "/home/xplo/ESIEE/cpp/Project_SDL_Part1_ABDOUCHE/media/wolf.png";
-constexpr std::string_view anh_my_sheep_path = "./media/sheep.png";
-constexpr std::string_view anh_my_wolf_path = "./media/wolf.png";
-
-
 application::application(unsigned int n_sheep, unsigned int n_wolf) {
 
+  /**************** INITIALIZING OUR PROPERTIES ************************/
   srand((unsigned)time(nullptr));
 
   window_ptr_ = SDL_CreateWindow("My Zoo", SDL_WINDOWPOS_CENTERED,
@@ -26,33 +21,42 @@ application::application(unsigned int n_sheep, unsigned int n_wolf) {
 
   zoo_ground_ = ground();
 
-  //SDL_Event e;
-  //window_event_ = e;
+  TTF_Font* font = TTF_OpenFont("/home/xplo/ESIEE/cpp/Project_SDL_Part1_ABDOUCHE/media/Cotton Butter.ttf", 40);
 
-  std::string sheep_path = "/home/xplo/ESIEE/cpp/Project_SDL_Part1_ABDOUCHE/media/sheep.png";
-  std::string wolf_path = "/home/xplo/ESIEE/cpp/Project_SDL_Part1_ABDOUCHE/media/wolf.png";
 
-  //std::string sheep_path = "./media/sheep.png";
-  //std::string wolf_path = "./media/wolf.png";
+  score_rect_.x = 0;
+  score_rect_.y = 0;
+
+  score_ = n_sheep;
+
+  score_surface_ = TTF_RenderText_Blended(font, std::to_string(score_).c_str(), black);
+
+  /****************** FILLING OUR GROUND ****************************/
+
 
   //let's make things colorful.
   SDL_FillRect(window_surface_ptr_ ,nullptr, SDL_MapRGB(window_surface_ptr_->format,0,127,0));
 
   auto sheep_prop = std::set<std::string>{"sheep", "adult"};
+  auto wolf_prop = std::set<std::string>{"wolf"};
   for (int i = 0; i < n_sheep; i++) {
-    auto s = std::make_shared<sheep>(sheep_path, window_surface_ptr_, sheep_prop);
+    auto s = std::make_shared<sheep>(samy_sheep_path.data(), window_surface_ptr_, sheep_prop, zoo_ground_);
     zoo_ground_.add_animal(s);
     s->draw();
   }
 
   for (int i = 0; i < n_wolf; i++){
-    auto s = std::make_shared<wolf>(wolf_path, window_surface_ptr_);
+    auto s = std::make_shared<wolf>(samy_wolf_path.data(), window_surface_ptr_, zoo_ground_);
     zoo_ground_.add_animal(s);
+    zoo_ground_.add_timed_animal(s);
     s->draw();
   }
   SDL_UpdateWindowSurface(window_ptr_);
 
 }
+
+
+
 
 application::~application() {
   SDL_FreeSurface(window_surface_ptr_);
@@ -61,20 +65,18 @@ application::~application() {
 }
 
 
-int application::loop(unsigned period) {
 
-  SDL_Surface* sheep_surface = load_surface_for(samy_sheep_path.data(), window_surface_ptr_);
+
+int application::loop(unsigned period) {
 
   srand((unsigned)time(nullptr));
 
   Uint32 currentTime = 0;
-  int lastTime = 0;
   auto& zoo = zoo_ground_.getAnimals();
 
 
-  while (currentTime <= period) {
+  while (currentTime <= period && score_ > 0) {
 
-    int i = 0;
     //This terminates the application, if we... try to close it
     while (SDL_PollEvent(&window_event_))
       if (window_event_.type == SDL_QUIT)
@@ -85,25 +87,11 @@ int application::loop(unsigned period) {
     currentTime = SDL_GetTicks();
 
 
-    //checking if lambs are past childhood
-    for (auto& s : zoo){
+    auto wolf_number = std::count_if(std::begin(zoo), std::end(zoo), [] (const std::shared_ptr<moving_object>& obj) {return obj->hasProperty("wolf");});
 
-      if (s->hasProp("lamb")) {
-
-        auto now = std::chrono::system_clock::now();
-        auto delay = std::chrono::duration_cast<std::chrono::seconds>(now - s->getTimer()).count();
-
-        if (delay > childhoodDuration) {
-
-          s->getw() *= 1.5;
-          s->geth() *= 1.5;
-          s->getImageSurface() = load_surface_for(samy_sheep_path.data(), window_surface_ptr_);
-          s->properties().insert("sheep");
-          s->properties().erase("lamb");
-
-        }
-      }
-    }
+    score_ = zoo.size() - wolf_number;
+    score_surface_ = TTF_RenderText_Blended(font_, std::to_string(score_).c_str(), black);
+    SDL_BlitSurface(score_surface_, nullptr, window_surface_ptr_, &score_rect_);
     SDL_UpdateWindowSurface(window_ptr_);
     SDL_Delay((Uint32)frame_time);
 

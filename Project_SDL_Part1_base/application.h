@@ -12,6 +12,11 @@ private:
   SDL_Surface* window_surface_ptr_;
   SDL_Event window_event_;
   ground zoo_ground_;
+  SDL_Surface* score_surface_;
+  SDL_Rect score_rect_;
+  unsigned int score_;
+  TTF_Font* font_ = TTF_OpenFont("/home/xplo/ESIEE/cpp/Project_SDL_Part1_ABDOUCHE/media/Cotton Butter.ttf", 40);
+
 
 public:
   application(unsigned n_sheep, unsigned n_wolf); // Ctor
