@@ -3,22 +3,20 @@
 //
 #pragma once
 
-#include "headers.h"
-#include "Project_SDL1.h"
-#include "sheep.h"
-#include "declarations.hh"
+#include "timed_animal.h"
 
 class ground {
 private:
-  std::vector<std::shared_ptr<animal>> animals_;
+  std::vector<std::shared_ptr<moving_object>> animals_;
+  std::vector<std::shared_ptr<timed_animal>> timed_animals_;
 
 public:
   ground();
   ~ground() = default;
-  void add_animal(const std::shared_ptr<animal>& a);
+  void add_animal(const std::shared_ptr<moving_object>& a);
   void update();
-  [[nodiscard]] std::vector<std::shared_ptr<animal>> getAnimals() const;
-  std::vector<std::shared_ptr<animal>>& getAnimals();
+  std::vector<std::shared_ptr<moving_object>>& getAnimals();
+  void add_timed_animal(const std::shared_ptr<timed_animal>& a);
 
 
 
