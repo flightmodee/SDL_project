@@ -28,7 +28,6 @@ void rendered_object::draw() const{
   //These two next lines are used to get rid of the PNG backgrounds
   Uint32 color_key = SDL_MapRGB(image_ptr_->format, 0, 0, 0);
   SDL_SetColorKey(image_ptr_, SDL_TRUE, color_key);
-
   SDL_Rect pos;
   pos.x = (int)pos_x_;
   pos.y = (int)pos_y_;

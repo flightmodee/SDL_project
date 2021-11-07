@@ -13,7 +13,7 @@ class sheep : public timed_animal {
 public:
   sheep(const std::string& file_path, SDL_Surface* window_surface_ptr, std::set<std::string> properties, ground& ground_ptr);
   ~sheep() override;
-  void interact(std::shared_ptr<moving_object> otherObject, double distance) override;
+  void interact(std::shared_ptr<moving_object> otherObject) override;
 
   void move() override;
 

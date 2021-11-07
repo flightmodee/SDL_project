@@ -14,5 +14,5 @@ public:
   ~wolf() override;
   void move() override;
   void evolve() override;
-  void interact(std::shared_ptr<moving_object> otherObject, double distance) override;
+  void interact(std::shared_ptr<moving_object> otherAnimal) override;
 };

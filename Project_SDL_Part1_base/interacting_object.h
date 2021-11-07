@@ -16,7 +16,7 @@ public:
   interacting_object(const std::set<std::string>& properties);
   ~interacting_object() = default;
 
-  virtual void interact(std::shared_ptr<moving_object> otherObject, double distance) = 0;
+  virtual void interact(std::shared_ptr<moving_object> otherObject) = 0;
   void addProperty(std::string property);
   bool deleteProperty(std::string property);
   bool hasProperty(std::string property);

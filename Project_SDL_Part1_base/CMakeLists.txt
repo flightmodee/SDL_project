@@ -12,21 +12,18 @@ IF(WIN32)
     message(STATUS "Building for 64bit")
     set(SDL2_LINK_DIRS "SDL2/lib/x64")
     set(SDL2IMAGE_LINK_DIRS "SDL2_image/lib/x64")
-
   else ()
     message(STATUS "Building for 32bit")
     set(SDL2_LINK_DIRS "SDL2/lib/x86")
     set(SDL2IMAGE_LINK_DIRS "SDL2_image/lib/x86")
-
   endif ()
 
   include_directories(${SDL2_INCLUDE_DIRS})
   include_directories(${SDL2IMAGE_INCLUDE_DIRS})
   link_directories(${SDL2_LINK_DIRS}, ${SDL2IMAGE_LINK_DIRS})
 
-  add_executable(SDL_part1 main.cpp Project_SDL1.cpp interacting_object.cpp rendered_object.cpp moving_object.cpp ground.cpp animal.cpp wolf.cpp application.cpp sheep.cpp timed_animal.cpp playable_character.cpp shepherd.cpp shepherd_dog.cpp)
-  target_link_libraries(SDL_part1 PUBLIC SDL2 SDL2main SDL2_image SDL2_ttf)
-
+  add_executable(SDL_part1 main.cpp Project_SDL1.cpp wolf.cpp application.cpp animal.cpp sheep.cpp ground.cpp)
+  target_link_libraries(SDL_part1 PUBLIC SDL2 SDL2main SDL2_image)
 ELSE()
   message(STATUS "Building for Linux or Mac")
 
@@ -35,8 +32,6 @@ ELSE()
   include_directories(${SDL2_INCLUDE_DIRS})
   include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
 
-
-
-  add_executable(SDL_part1 main.cpp Project_SDL1.cpp interacting_object.cpp rendered_object.cpp moving_object.cpp ground.cpp animal.cpp wolf.cpp shepherd.cpp application.cpp sheep.cpp timed_animal.cpp playable_character.cpp shepherd_dog.cpp)
-  target_link_libraries(SDL_part1 ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} SDL2_ttf)
+  add_executable(SDL_part1 main.cpp Project_SDL1.cpp wolf.cpp application.cpp animal.cpp sheep.cpp ground.cpp)
+  target_link_libraries(SDL_part1 ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES})
 ENDIF()
