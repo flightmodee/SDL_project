@@ -50,3 +50,21 @@ std::chrono::time_point<std::chrono::system_clock>& animal::getTimer(){
 void animal::move() {
     constrained_linear_move_(pos_x(), pos_y(), vel_x(), vel_y());
 }
+
+animal* animal::whoIsFemale(const std::shared_ptr<animal>& otherObject) {
+  if (otherObject->hasProperty("female"))
+    return (otherObject.get());
+
+  else if (hasProperty("female"))
+    return (this);
+  else
+    throw std::runtime_error("This shouldn't have happened at all.\n");
+}
+
+bool animal::canMakeBabies(const std::shared_ptr<animal> &otherObject) {
+  if (this->hasProperty("female") && otherObject->hasProperty("male") || this->hasProperty("female") && otherObject->hasProperty("male"))
+    if (!this->hasProperty("lamb") &&  otherObject->hasProperty("lamb"))
+      return (true);
+
+  return (false);
+}

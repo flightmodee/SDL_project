@@ -24,6 +24,9 @@ public:
 
   [[nodiscard]] std::chrono::time_point<std::chrono::system_clock>& getTimer();
 
+  animal* whoIsFemale(const std::shared_ptr<animal>& otherObject);
+  bool canMakeBabies(const std::shared_ptr<animal>& otherObject);
+
   void copyMommyProperties(animal* mom);
 
 };
