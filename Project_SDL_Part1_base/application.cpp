@@ -23,7 +23,7 @@ application::application(unsigned int n_sheep, unsigned int n_wolf) {
 
   zoo_ground_ = ground();
 
-  TTF_Font* font = TTF_OpenFont("/home/xplo/ESIEE/cpp/Project_SDL_Part1_ABDOUCHE/media/Cotton Butter.ttf", 40);
+  TTF_Font* font = TTF_OpenFont("./media/Cotton Butter.ttf", 40);
 
   score_rect_.x = 0;
   score_rect_.y = 0;
