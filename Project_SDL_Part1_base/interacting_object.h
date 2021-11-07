@@ -22,4 +22,8 @@ public:
   [[nodiscard]] std::set<std::string> getProperties() const;
   std::set<std::string>& getProperties();
 
+  interacting_object* whoIsFemale(const std::shared_ptr<interacting_object>& otherObject);
+  bool canMakeBabies(const std::shared_ptr<interacting_object>& otherObject);
+
+
 };

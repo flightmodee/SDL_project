@@ -35,3 +35,20 @@ bool interacting_object::hasProperty(std::string property) {
     return (false);
 }
 
+interacting_object* interacting_object::whoIsFemale(const std::shared_ptr<interacting_object>& otherObject) {
+  if (otherObject->hasProperty("female"))
+    return (otherObject.get());
+
+  else if (hasProperty("female"))
+    return (this);
+  else
+    throw std::runtime_error("This shouldn't have happened at all.\n");
+}
+
+bool interacting_object::canMakeBabies(const std::shared_ptr<interacting_object> &otherObject) {
+  if (this->hasProperty("female") && otherObject->hasProperty("male") || this->hasProperty("female") && otherObject->hasProperty("male"))
+    if (!this->hasProperty("lamb") &&  otherObject->hasProperty("lamb"))
+      return (true);
+
+  return (false);
+}
