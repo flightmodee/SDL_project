@@ -3,14 +3,16 @@
 //
 #pragma once
 #include "Project_SDL1.h"
+#include "timed_animal.h"
 #include "animal.h"
 
 
 
-class wolf : public animal {
+class wolf : public timed_animal {
 public:
-  wolf(const std::string& file_path, SDL_Surface* window_surface_ptr);
+  wolf(const std::string& file_path, SDL_Surface* window_surface_ptr, ground& ground_ptr);
   ~wolf() override;
   void move() override;
-  void interact(std::shared_ptr<animal> otherAnimal, ground& ground) override;
+  void evolve() override;
+  void interact(std::shared_ptr<moving_object> otherAnimal) override;
 };

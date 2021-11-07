@@ -7,13 +7,10 @@
 #include "headers.h"
 
 
-wolf::wolf(const std::string& file_path, SDL_Surface* window_surface_ptr) : animal(file_path, window_surface_ptr){
+wolf::wolf(const std::string& file_path, SDL_Surface* window_surface_ptr, ground& ground_ptr)
+    : timed_animal(file_path, window_surface_ptr, ground_ptr){
 
     properties_ = {"wolf", "adult"};
-    pos_x_ = frame_boundary + std::rand() % (frame_width - 2 * frame_boundary);
-    pos_y_ = frame_boundary + std::rand() % (frame_height - 2 * frame_boundary);
-    vel_x_ = 40 - std::rand() % 80;
-    vel_y_ = 40 - std::rand() % 80;
 }
 
 
@@ -21,14 +18,29 @@ void wolf::move(){
   constrained_linear_move_(pos_x(), pos_y(), vel_x(), vel_y());
 }
 
-void wolf::interact(std::shared_ptr<animal> otherAnimal, ground& ground) {
+void wolf::interact(std::shared_ptr<moving_object> otherAnimal) {
 
-  if (otherAnimal->hasProp("sheep")) {
-    std::vector<std::shared_ptr<animal>> &v = ground.getAnimals();
-    v.erase(std::remove(v.begin(), v.end(), otherAnimal), v.end());
+  if (otherAnimal->hasProperty("sheep")) {
+    auto& surrounding = ground_ptr_.getAnimals();
+    surrounding.erase(std::remove(surrounding.begin(), surrounding.end(), otherAnimal), surrounding.end());
   }
 
+  setTimer();
 }
+
+void wolf::evolve() {
+  auto& surrounding = ground_ptr_.getAnimals();
+  auto new_ground = std::vector<std::shared_ptr<moving_object>>();
+
+  for (auto& p : surrounding){
+    if (p.get() == this) {
+      surrounding.erase(std::remove(surrounding.begin(), surrounding.end(), p), surrounding.end());
+      break;
+    }
+
+  }
+}
+
 wolf::~wolf() {
   std::cout << "A wolf is gone. Good riddance, it'd prey on our precious sheep." << std::endl;
   SDL_FreeSurface(image_ptr_);
