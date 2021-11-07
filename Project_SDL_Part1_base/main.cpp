@@ -27,5 +27,8 @@ int main(int argc, char* argv[]) {
 
   std::cout << "Exiting application with code " << ret_val << std::endl;
 
+  SDL_Quit();
+  TTF_Quit();
+
   return ret_val;
 }
