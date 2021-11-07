@@ -6,12 +6,12 @@
 #include "headers.h"
 
 
-ground::ground() : animals_{std::vector<std::shared_ptr<moving_object>>()} {
+ground::ground() : objects_{std::vector<std::shared_ptr<moving_object>>()} {
   timed_animals_ = std::vector<std::shared_ptr<timed_animal>>();
 }
 
-void ground::add_animal(const std::shared_ptr<moving_object>& a) {
-  animals_.push_back(a);
+void ground::add_object(const std::shared_ptr<moving_object>& a) {
+  objects_.push_back(a);
 }
 
 void ground::add_timed_animal(const std::shared_ptr<timed_animal> &a){
@@ -23,16 +23,16 @@ void ground::update(){
 
   std::shared_ptr<moving_object> a, b;
 
-  for (int i = 0; i < animals_.size(); ++i){
+  for (int i = 0; i < objects_.size(); ++i){
 
-    a = animals_[i];
+    a = objects_[i];
     double xA = a->pos_x() + (a->get_w()) / 2;
     double yA = a->pos_y() + (a->get_h()) / 2;
 
 
-      for (int j = 0; j < animals_.size(); ++j){
+      for (int j = 0; j < objects_.size(); ++j){
 
-        b = animals_[j];
+        b = objects_[j];
         if (a == b)
           continue;
 
@@ -51,23 +51,27 @@ void ground::update(){
     auto now = std::chrono::system_clock::now();
     auto delay = std::chrono::duration_cast<std::chrono::seconds>(now - l->getTimer()).count();
 
-    if (l->hasProperty("lamb")) {
+    if (l->hasProperty("lamb"))
       if (delay > childhoodDuration)
         l->evolve();
-    }
-    else if (l->hasProperty("wolf"))
+
+    if (l->hasProperty("wolf"))
       if (delay > starvingDuration)
+        l->evolve();
+
+    if (l->hasProperty("sheep") && l->hasProperty("boosted"))
+      if (delay > 1)
         l->evolve();
   }
 
 
 
-  for (auto &d : animals_) {
+  for (auto &d : objects_) {
     d->move();
     d->draw();
   }
 
 }
-std::vector<std::shared_ptr<moving_object>> &ground::getAnimals() {
-  return animals_;
+std::vector<std::shared_ptr<moving_object>> &ground::getObjects() {
+  return objects_;
 }

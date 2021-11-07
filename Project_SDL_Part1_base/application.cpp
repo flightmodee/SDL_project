@@ -43,25 +43,26 @@ application::application(unsigned int n_sheep, unsigned int n_wolf) {
   auto wolf_prop = std::set<std::string>{"wolf"};
   for (int i = 0; i < n_sheep; i++) {
     auto s = std::make_shared<sheep>(samy_sheep_path.data(), window_surface_ptr_, sheep_prop, zoo_ground_);
-    zoo_ground_.add_animal(s);
+    zoo_ground_.add_timed_animal(s);
+    zoo_ground_.add_object(s);
     s->draw();
   }
 
-  for (int i = 0; i < n_wolf; i++){
-    auto s = std::make_shared<wolf>(samy_wolf_path.data(), window_surface_ptr_, zoo_ground_);
-    zoo_ground_.add_animal(s);
+  for (int i = 0; i < n_wolf; i++) {
+    auto s = std::make_shared<wolf>(samy_wolf_path.data(), window_surface_ptr_,
+                                    zoo_ground_);
+    zoo_ground_.add_object(s);
     zoo_ground_.add_timed_animal(s);
   }
 
   auto shep = std::make_shared<shepherd>(samy_shepherd_path.data(), window_surface_ptr_);
-  zoo_ground_.add_animal(shep);
+  zoo_ground_.add_object(shep);
   shep->draw();
 
   auto dog = std::make_shared<shepherd_dog>(samy_doggo_path.data(), window_surface_ptr_, zoo_ground_, shep);
-  zoo_ground_.add_animal(dog);
+  zoo_ground_.add_object(dog);
   dog->draw();
   SDL_UpdateWindowSurface(window_ptr_);
-
 
 }
 
@@ -82,7 +83,7 @@ int application::loop(unsigned period) {
   srand((unsigned)time(nullptr));
 
   Uint32 currentTime = 0;
-  auto& zoo = zoo_ground_.getAnimals();
+  auto& zoo = zoo_ground_.getObjects();
 
 
   while (currentTime <= period) {
