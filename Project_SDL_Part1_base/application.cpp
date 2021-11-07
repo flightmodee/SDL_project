@@ -2,11 +2,13 @@
 // Created by xplo on 27/10/2021.
 //
 
-#include "headers.h"
 #include "application.h"
-#include "ground.h"
 #include "animal.h"
+#include "ground.h"
+#include "headers.h"
 #include "sheep.h"
+#include "shepherd.h"
+#include "shepherd_dog.h"
 #include "wolf.h"
 
 application::application(unsigned int n_sheep, unsigned int n_wolf) {
@@ -49,9 +51,17 @@ application::application(unsigned int n_sheep, unsigned int n_wolf) {
     auto s = std::make_shared<wolf>(samy_wolf_path.data(), window_surface_ptr_, zoo_ground_);
     zoo_ground_.add_animal(s);
     zoo_ground_.add_timed_animal(s);
-    s->draw();
   }
+
+  auto shep = std::make_shared<shepherd>(samy_shepherd_path.data(), window_surface_ptr_);
+  zoo_ground_.add_animal(shep);
+  shep->draw();
+
+  auto dog = std::make_shared<shepherd_dog>(samy_doggo_path.data(), window_surface_ptr_, zoo_ground_, shep);
+  zoo_ground_.add_animal(dog);
+  dog->draw();
   SDL_UpdateWindowSurface(window_ptr_);
+
 
 }
 
@@ -75,7 +85,7 @@ int application::loop(unsigned period) {
   auto& zoo = zoo_ground_.getAnimals();
 
 
-  while (currentTime <= period && score_ > 0) {
+  while (currentTime <= period) {
 
     //This terminates the application, if we... try to close it
     while (SDL_PollEvent(&window_event_))
@@ -89,7 +99,7 @@ int application::loop(unsigned period) {
 
     auto wolf_number = std::count_if(std::begin(zoo), std::end(zoo), [] (const std::shared_ptr<moving_object>& obj) {return obj->hasProperty("wolf");});
 
-    score_ = zoo.size() - wolf_number;
+    score_ = zoo.size() - wolf_number - 2; //discarding the shepherd and the dog
     score_surface_ = TTF_RenderText_Blended(font_, std::to_string(score_).c_str(), black);
     SDL_BlitSurface(score_surface_, nullptr, window_surface_ptr_, &score_rect_);
     SDL_UpdateWindowSurface(window_ptr_);
