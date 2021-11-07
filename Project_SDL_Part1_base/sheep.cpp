@@ -30,33 +30,8 @@ sheep::sheep(const std::string& file_path, SDL_Surface* window_surface_ptr, std:
     }
 }
 
-void sheep::move(){
-    constrained_linear_move_(pos_x(), pos_y(), vel_x(), vel_y());
-}
-
-
-animal* sheep::whoIsFemale(const std::shared_ptr<animal>& otherAnimal){
-  if (otherAnimal->hasProp("female"))
-    return (otherAnimal.get());
-
-  else if (hasProp("female"))
-    return (this);
-  else
-    throw std::runtime_error("This shouldn't have happened at all.\n");
-}
-
-
-
-bool sheep::canMakeBabies(const std::shared_ptr<animal>& otherAnimal){
-  if (this->hasProp("female") && otherAnimal->hasProp("male") || this->hasProp("female") && otherAnimal->hasProp("male"))
-    if (!this->hasProp("lamb") && !otherAnimal->hasProp("lamb"))
-      return (true);
-
-  return (false);
-}
-
-void sheep::interact(std::shared_ptr<animal> otherAnimal, ground& ground) {
-    /*if (otherAnimal->hasprop("wolf")) {
+void sheep::interact(std::shared_ptr<animal> otherAnimal) {
+    /*if (otherAnimal->hasProperty("wolf")) {
         double vAx = this->vel_x();
         double vAy = this->vel_y();
         double vBx = otherAnimal->vel_x();
@@ -75,14 +50,14 @@ void sheep::interact(std::shared_ptr<animal> otherAnimal, ground& ground) {
             this->vel_y() = vAy * 1.5;
         }
     }*/
-    if (otherAnimal->hasProp("sheep")) {
+    if (otherAnimal->hasProperty("sheep")) {
         if (this->canMakeBabies(otherAnimal)){
 
           auto female = this->whoIsFemale(otherAnimal);
           auto now = std::chrono::system_clock::now();
           auto delay = std::chrono::duration_cast<std::chrono::seconds>(now - female->getTimer()).count();
 
-          if (delay > sexFreeDuration || female->properties().count("just_spawned")){
+          if (delay > sexFreeDuration || female->getProperties().count("just_spawned")){
             std::cout << "let's make babies :)" << std::endl;
 
 
@@ -99,8 +74,8 @@ void sheep::interact(std::shared_ptr<animal> otherAnimal, ground& ground) {
 
             //resetting the female's timer
             female->getTimer() = std::chrono::system_clock::now();
-            if (female->properties().count("just_spawned"))
-              female->properties().erase("just_spawned");
+            if (female->getProperties().count("just_spawned"))
+              female->getProperties().erase("just_spawned");
           }
         }
     }

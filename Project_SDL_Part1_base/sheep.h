@@ -12,8 +12,6 @@ public:
   sheep(const std::string& file_path, SDL_Surface* window_surface_ptr, std::set<std::string> properties);
   sheep(const sheep& s);
   ~sheep() override;
-  void move() override;
-  void interact(std::shared_ptr<animal> otherAnimal, ground& ground) override;
-  animal* whoIsFemale(const std::shared_ptr<animal> &otherAnimal);
-  bool canMakeBabies(const std::shared_ptr<animal>& otherAnimal);
+  void interact(std::shared_ptr<interacting_object> otherObject) override;
+
 };
