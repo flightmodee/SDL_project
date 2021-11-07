@@ -26,7 +26,7 @@ void sheep::move() {
 }
 
 void sheep::interact(std::shared_ptr<moving_object> otherObject, double distance) {
-    if (otherObject->hasProperty("wolf") && distance < 70.0) {
+    /*if (otherObject->hasProperty("wolf") && distance < 70.0) {
         double vAx = this->vel_x();
         double vAy = this->vel_y();
         double vBx = otherObject->vel_x();
@@ -34,18 +34,24 @@ void sheep::interact(std::shared_ptr<moving_object> otherObject, double distance
 
         if (vBx < 0 && vAx >0 || vBx > 0 && vAx < 0) {
             this->vel_x() = -vAx * 1.5;
-
+            addProperty("vel_x");
         }
         if (vBx < 0 && vAx < 0 || vBx > 0 && vAx > 0) {
             this->vel_x() = vAx * 1.5;
+            addProperty("vel_x");
         }
         if (vBy < 0 && vAy >0 || vBy > 0 && vAy < 0) {
             this->vel_y() = -vAy * 1.5;
+            addProperty("vel_y");
         }
         if (vBy < 0 && vAy < 0 || vBy > 0 && vAy > 0) {
             this->vel_y() = vAy * 1.5;
+            addProperty("vel_y");
         }
-    }
+        addProperty("boosted");
+        setTimer();
+    }*/
+
     if (otherObject->hasProperty("sheep") && !otherObject->hasProperty("lamb") && otherObject->hasProperty("male") && distance < 30){
       if (this->hasProperty("female") && !this->hasProperty("lamb")) {
 
@@ -61,12 +67,12 @@ void sheep::interact(std::shared_ptr<moving_object> otherObject, double distance
 
           //Creating a lamb
           auto set = std::set<std::string>{"sheep", "lamb"};
-          auto lamb = std::make_shared<sheep>(samy_lamb_path.data(), window_surface_ptr_, set, ground_ptr_);
+          auto lamb = std::make_shared<sheep>("./media/lamb.png", window_surface_ptr_, set, ground_ptr_);
 
           lamb->copyProperties(this);
           //adding lamb to ground
           ground_ptr_.add_timed_animal(lamb); //we'll keep track of its evolution
-          ground_ptr_.add_animal(lamb);
+          ground_ptr_.add_object(lamb);
 
         }
       }
@@ -76,10 +82,23 @@ void sheep::interact(std::shared_ptr<moving_object> otherObject, double distance
 
 void sheep::evolve() {
 
-  if (hasProperty("lamb")){
-    image_ptr_ = load_surface_for(samy_sheep_path.data(), window_surface_ptr_);
-    //the lamb now part ways with its mother, how sad
-  }
+  /*if (hasProperty("boosted")){
+
+      if (hasProperty("vel_x")){
+        vel_x_/=1.5;
+        deleteProperty("vel_x");
+      }
+      if (hasProperty("vel_y")){
+        vel_y_/=1.5;
+        deleteProperty("vel_y");
+      }
+
+    deleteProperty("boosted");
+    setTimer();
+  }*/
+
+  if (hasProperty("lamb"))
+    image_ptr_ = load_surface_for("./media/lamb.png", window_surface_ptr_);
 }
 
 sheep::~sheep() {

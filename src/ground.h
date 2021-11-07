@@ -7,17 +7,16 @@
 
 class ground {
 private:
-  std::vector<std::shared_ptr<moving_object>> animals_;
+  std::vector<std::shared_ptr<moving_object>> objects_;
   std::vector<std::shared_ptr<timed_animal>> timed_animals_;
 
 public:
   ground();
   ~ground() = default;
-  void add_animal(const std::shared_ptr<moving_object>& a);
+  void add_object(const std::shared_ptr<moving_object>& a);
   void update();
-  std::vector<std::shared_ptr<moving_object>>& getAnimals();
+  std::vector<std::shared_ptr<moving_object>>& getObjects();
   void add_timed_animal(const std::shared_ptr<timed_animal>& a);
-
 
 
 };

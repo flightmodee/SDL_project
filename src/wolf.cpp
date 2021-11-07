@@ -21,7 +21,7 @@ void wolf::move(){
 void wolf::interact(std::shared_ptr<moving_object> otherObject, double distance) {
 
   if (otherObject->hasProperty("sheep") && distance < 30.0) {
-    auto& surrounding = ground_ptr_.getAnimals();
+    auto& surrounding = ground_ptr_.getObjects();
     surrounding.erase(std::remove(surrounding.begin(), surrounding.end(), otherObject), surrounding.end());
     setTimer();
   }
@@ -44,11 +44,12 @@ void wolf::interact(std::shared_ptr<moving_object> otherObject, double distance)
       this->vel_y() = vAy ;
     }
   }
+  addProperty("boosted");
 
 }
 
 void wolf::evolve() {
-  auto& surrounding = ground_ptr_.getAnimals();
+  auto& surrounding = ground_ptr_.getObjects();
   auto new_ground = std::vector<std::shared_ptr<moving_object>>();
 
   for (auto& p : surrounding){
