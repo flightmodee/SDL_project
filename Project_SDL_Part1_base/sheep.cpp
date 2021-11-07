@@ -67,7 +67,7 @@ void sheep::interact(std::shared_ptr<moving_object> otherObject, double distance
 
           //Creating a lamb
           auto set = std::set<std::string>{"sheep", "lamb"};
-          auto lamb = std::make_shared<sheep>(samy_lamb_path.data(), window_surface_ptr_, set, ground_ptr_);
+          auto lamb = std::make_shared<sheep>("./media/lamb.png", window_surface_ptr_, set, ground_ptr_);
 
           lamb->copyProperties(this);
           //adding lamb to ground
@@ -97,10 +97,8 @@ void sheep::evolve() {
     setTimer();
   }*/
 
-  if (hasProperty("lamb")){
-    image_ptr_ = load_surface_for(samy_sheep_path.data(), window_surface_ptr_);
-    //the lamb now part ways with its mother, how sad
-  }
+  if (hasProperty("lamb"))
+    image_ptr_ = load_surface_for("./media/lamb.png", window_surface_ptr_);
 }
 
 sheep::~sheep() {

@@ -19,13 +19,5 @@
 
 constexpr SDL_Color black = {0, 0, 0};
 constexpr unsigned int childhoodDuration = 5;
-constexpr std::string_view samy_sheep_path = "/home/xplo/ESIEE/cpp/Project_SDL_Part1_ABDOUCHE/media/sheep.png";
-constexpr std::string_view samy_lamb_path = "/home/xplo/ESIEE/cpp/Project_SDL_Part1_ABDOUCHE/media/lamb.png";
-constexpr std::string_view samy_wolf_path = "/home/xplo/ESIEE/cpp/Project_SDL_Part1_ABDOUCHE/media/wolf.png";
-constexpr std::string_view samy_doggo_path = "/home/xplo/ESIEE/cpp/Project_SDL_Part1_ABDOUCHE/media/doggo.png";
-constexpr std::string_view samy_shepherd_path = "/home/xplo/ESIEE/cpp/Project_SDL_Part1_ABDOUCHE/media/shepherd.png";
 constexpr unsigned int sexFreeDuration = 10;
 constexpr unsigned int starvingDuration = 30;
-constexpr unsigned int distanceFromMommy = 50;
-constexpr std::string_view anh_my_sheep_path = "./media/sheep.png";
-constexpr std::string_view anh_my_wolf_path = "./media/wolf.png";

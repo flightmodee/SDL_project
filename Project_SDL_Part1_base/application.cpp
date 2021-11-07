@@ -25,7 +25,6 @@ application::application(unsigned int n_sheep, unsigned int n_wolf) {
 
   TTF_Font* font = TTF_OpenFont("/home/xplo/ESIEE/cpp/Project_SDL_Part1_ABDOUCHE/media/Cotton Butter.ttf", 40);
 
-
   score_rect_.x = 0;
   score_rect_.y = 0;
 
@@ -42,39 +41,29 @@ application::application(unsigned int n_sheep, unsigned int n_wolf) {
   auto sheep_prop = std::set<std::string>{"sheep", "adult"};
   auto wolf_prop = std::set<std::string>{"wolf"};
   for (int i = 0; i < n_sheep; i++) {
-    auto s = std::make_shared<sheep>(samy_sheep_path.data(), window_surface_ptr_, sheep_prop, zoo_ground_);
+    auto s = std::make_shared<sheep>("./media/sheep.png", window_surface_ptr_, sheep_prop, zoo_ground_);
     zoo_ground_.add_timed_animal(s);
     zoo_ground_.add_object(s);
     s->draw();
   }
 
   for (int i = 0; i < n_wolf; i++) {
-    auto s = std::make_shared<wolf>(samy_wolf_path.data(), window_surface_ptr_,
+    auto s = std::make_shared<wolf>("./media/wolf.png", window_surface_ptr_,
                                     zoo_ground_);
     zoo_ground_.add_object(s);
     zoo_ground_.add_timed_animal(s);
   }
 
-  auto shep = std::make_shared<shepherd>(samy_shepherd_path.data(), window_surface_ptr_);
+  auto shep = std::make_shared<shepherd>("./media/shepherd.png", window_surface_ptr_);
   zoo_ground_.add_object(shep);
   shep->draw();
 
-  auto dog = std::make_shared<shepherd_dog>(samy_doggo_path.data(), window_surface_ptr_, zoo_ground_, shep);
+  auto dog = std::make_shared<shepherd_dog>("./media/doggo.png", window_surface_ptr_, zoo_ground_, shep);
   zoo_ground_.add_object(dog);
   dog->draw();
   SDL_UpdateWindowSurface(window_ptr_);
 
 }
-
-
-
-
-application::~application() {
-  SDL_FreeSurface(window_surface_ptr_);
-  SDL_DestroyWindow(window_ptr_);
-  std::cout << "The application is no more." << std::endl;
-}
-
 
 
 
@@ -109,4 +98,10 @@ int application::loop(unsigned period) {
 
   }
   return 1;
+}
+
+application::~application() {
+  SDL_FreeSurface(window_surface_ptr_);
+  SDL_DestroyWindow(window_ptr_);
+  std::cout << "The application is no more." << std::endl;
 }
