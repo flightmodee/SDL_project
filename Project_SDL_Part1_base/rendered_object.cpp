@@ -18,14 +18,28 @@ void rendered_object::setSurface(const std::string& path, SDL_Surface *newSurfac
 }
 
 
-void rendered_object::setDimensions(int width, int height) {
-  image_ptr_->w = width;
-  image_ptr_->h = height;
+void rendered_object::draw() const{
+
+  if (window_surface_ptr_ == nullptr || image_ptr_ == nullptr){
+    std::cout << "pointers aren't ok, bro, do something";
+    return;
+  }
+
+  //These two next lines are used to get rid of the PNG backgrounds
+  Uint32 color_key = SDL_MapRGB(image_ptr_->format, 0, 0, 0);
+  SDL_SetColorKey(image_ptr_, SDL_TRUE, color_key);
+  SDL_Rect pos;
+  pos.x = (int)pos_x_;
+  pos.y = (int)pos_y_;
+  pos.h = image_ptr_->h;
+  pos.w = image_ptr_->w;
+  SDL_BlitScaled(image_ptr_, nullptr, window_surface_ptr_, &pos);
 }
 
-unsigned int rendered_object::pos_x() const { return pos_x_; }
-unsigned int& rendered_object::pos_x() { return pos_x_; }
-unsigned int rendered_object::pos_y() const { return pos_y_; }
-unsigned int& rendered_object::pos_y() { return pos_y_; }
 
-
+double rendered_object::pos_x() const { return pos_x_; }
+double& rendered_object::pos_x() { return pos_x_; }
+double rendered_object::pos_y() const { return pos_y_; }
+double& rendered_object::pos_y() { return pos_y_; }
+double rendered_object::get_w() {return image_ptr_->w;}
+double rendered_object::get_h() {return image_ptr_->h;}
