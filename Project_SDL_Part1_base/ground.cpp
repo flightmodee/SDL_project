@@ -43,8 +43,7 @@ void ground::update(){
         double dy = yB - yA;
         double distance = sqrt(dx * dx + dy * dy);
 
-          if (distance < 30)
-            a->interact(b);
+        a->interact(b, distance);
       }
   }
 
