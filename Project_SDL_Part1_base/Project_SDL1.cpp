@@ -43,7 +43,7 @@ SDL_Surface* load_surface_for(const std::string& path, SDL_Surface* window_surfa
   return (surf);
 }
 
-void constrained_linear_move_(unsigned int& x, unsigned int& y, int& vx, int& vy) {
+void constrained_linear_move_(double& x, double& y, double& vx, double& vy) {
     x += (frame_time * vx);
     y += (frame_time * vy);
 
