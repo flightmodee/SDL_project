@@ -18,14 +18,33 @@ void wolf::move(){
   constrained_linear_move_(pos_x(), pos_y(), vel_x(), vel_y());
 }
 
-void wolf::interact(std::shared_ptr<moving_object> otherAnimal) {
+void wolf::interact(std::shared_ptr<moving_object> otherObject, double distance) {
 
-  if (otherAnimal->hasProperty("sheep")) {
+  if (otherObject->hasProperty("sheep") && distance < 30.0) {
     auto& surrounding = ground_ptr_.getAnimals();
-    surrounding.erase(std::remove(surrounding.begin(), surrounding.end(), otherAnimal), surrounding.end());
+    surrounding.erase(std::remove(surrounding.begin(), surrounding.end(), otherObject), surrounding.end());
+    setTimer();
+  }
+  if (otherObject->hasProperty("shepherd_dog") && distance < 200.0) {
+    double vAx = this->vel_x();
+    double vAy = this->vel_y();
+    double vBx = otherObject->vel_x();
+    double vBy = otherObject->vel_y();
+    if (vBx < 0 && vAx >0 || vBx > 0 && vAx < 0) {
+      this->vel_x() = -vAx;
+
+    }
+    if (vBx < 0 && vAx < 0 || vBx > 0 && vAx > 0) {
+      this->vel_x() = vAx;
+    }
+    if (vBy < 0 && vAy >0 || vBy > 0 && vAy < 0) {
+      this->vel_y() = -vAy ;
+    }
+    if (vBy < 0 && vAy < 0 || vBy > 0 && vAy > 0) {
+      this->vel_y() = vAy ;
+    }
   }
 
-  setTimer();
 }
 
 void wolf::evolve() {
