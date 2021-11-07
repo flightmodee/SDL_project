@@ -18,9 +18,12 @@ bool interacting_object::deleteProperty(std::string property) {
   else
     return (false);
 }
+
+
 std::set<std::string> interacting_object::getProperties() const {
   return properties_;
 }
+
 
 std::set<std::string>& interacting_object::getProperties(){
   return properties_;
@@ -31,3 +34,4 @@ bool interacting_object::hasProperty(std::string property) {
   else
     return (false);
 }
+

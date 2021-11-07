@@ -9,6 +9,7 @@ class interacting_object {
 protected:
   std::set<std::string> properties_;
 
+
 public:
 
   interacting_object(const std::set<std::string>& properties);
@@ -20,4 +21,5 @@ public:
   bool hasProperty(std::string property);
   [[nodiscard]] std::set<std::string> getProperties() const;
   std::set<std::string>& getProperties();
+
 };
