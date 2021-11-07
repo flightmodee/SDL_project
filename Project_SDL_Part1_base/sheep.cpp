@@ -6,31 +6,27 @@
 #include "sheep.h"
 #include "ground.h"
 
-constexpr unsigned int sexFreeDuration = 10;
-
 //We'll only set the timer if the newly-created sheep is a female.
 //Male sheep do not need, at first, to have their timer set.
-sheep::sheep(const std::string& file_path, SDL_Surface* window_surface_ptr, std::set<std::string> properties)
-    : animal(file_path, window_surface_ptr) {
+sheep::sheep(const std::string& file_path, SDL_Surface* window_surface_ptr, std::set<std::string> properties, ground& ground_ptr)
+    : timed_animal(file_path, window_surface_ptr, ground_ptr){
 
     properties_ = std::move(properties);
     std::string gender[2] = {"male", "female"};
-    pos_x_ = frame_boundary + std::rand() % (frame_width - 2 * frame_boundary);
-    pos_y_ = frame_boundary + std::rand() % (frame_height - 2 * frame_boundary);
-    vel_x_ = 40 - std::rand() % 80;
-    vel_y_ = 40 - std::rand() % 80;
     properties_.insert(gender[rand() & 1]); //the sheep can be a male or a female
 
     //We'll only set a timer for the female sheep, on their creation
     //We'll also add a special property which will be used in the context of
     //sheep x sheep interaction
-    if (properties_.count("female") && !properties_.count("lamb")) {
-      timer_ = std::chrono::system_clock::now();
+    if (properties_.count("female") && !properties_.count("lamb"))
       properties_.insert("just_spawned");
-    }
+
+}
+void sheep::move() {
+  constrained_linear_move_(pos_x(), pos_y(), vel_x(), vel_y());
 }
 
-void sheep::interact(std::shared_ptr<animal> otherAnimal) {
+void sheep::interact(std::shared_ptr<moving_object> otherAnimal) {
     /*if (otherAnimal->hasProperty("wolf")) {
         double vAx = this->vel_x();
         double vAy = this->vel_y();
@@ -50,38 +46,47 @@ void sheep::interact(std::shared_ptr<animal> otherAnimal) {
             this->vel_y() = vAy * 1.5;
         }
     }*/
-    if (otherAnimal->hasProperty("sheep")) {
-        if (this->canMakeBabies(otherAnimal)){
+      if (otherAnimal->hasProperty("sheep") && !otherAnimal->hasProperty("lamb") && otherAnimal->hasProperty("male")){
+        if (this->hasProperty("female") && !this->hasProperty("lamb")) {
 
-          auto female = this->whoIsFemale(otherAnimal);
           auto now = std::chrono::system_clock::now();
-          auto delay = std::chrono::duration_cast<std::chrono::seconds>(now - female->getTimer()).count();
-
-          if (delay > sexFreeDuration || female->getProperties().count("just_spawned")){
-            std::cout << "let's make babies :)" << std::endl;
+          auto delay = std::chrono::duration_cast<std::chrono::seconds>(now - this->timer_).count();
 
 
-            auto set = std::set<std::string>{"sheep", "lamb"};
-            auto s = std::make_shared<sheep>("/home/xplo/ESIEE/cpp/Project_SDL_Part1_ABDOUCHE/media/lamb.png", window_surface_ptr_, set);
-
-            //We'll set a timer for our newly created lamb, so that after a certain amount of time, it
-            //grows into a strong sheep
-            s->getTimer() = std::chrono::system_clock::now();
-            //the lamb will follow his mother
-            s->copyMommyProperties(female);
-
-            ground.add_animal(s);
-
+          if (delay > sexFreeDuration || getProperties().count("just_spawned")){//sexy time
             //resetting the female's timer
-            female->getTimer() = std::chrono::system_clock::now();
-            if (female->getProperties().count("just_spawned"))
-              female->getProperties().erase("just_spawned");
+            setTimer();
+            if (getProperties().count("just_spawned"))
+              getProperties().erase("just_spawned");
+
+            //Creating a lamb
+            auto set = std::set<std::string>{"sheep", "lamb"};
+            auto lamb = std::make_shared<sheep>(samy_lamb_path.data(), window_surface_ptr_, set, ground_ptr_);
+
+            //the lamb will follow his mother, at first
+            lamb->copyProperties(this);
+            //adding lamb to ground
+            ground_ptr_.add_timed_animal(lamb); //we'll keep track of its evolution
+            ground_ptr_.add_animal(lamb);
+
           }
         }
-    }
+      }
+
+}
+
+void sheep::evolve() {
+
+  if (hasProperty("lamb")){
+    image_ptr_ = load_surface_for(samy_sheep_path.data(), window_surface_ptr_);
+    //the lamb now part ways with its mother, how sad
+  }
 }
 
 sheep::~sheep() {
   SDL_FreeSurface(image_ptr_);
   std::cout << "Oh me, oh my, a sheep has been destroyed, whatever shall we do?" << std::endl;
 }
+
+
+
