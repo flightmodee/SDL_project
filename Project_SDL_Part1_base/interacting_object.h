@@ -4,6 +4,7 @@
 
 #pragma once
 #include "headers.h"
+#include "declarations.hh"
 
 class interacting_object {
 protected:
@@ -15,15 +16,13 @@ public:
   interacting_object(const std::set<std::string>& properties);
   ~interacting_object() = default;
 
-  virtual void interact(std::shared_ptr<interacting_object> otherObject) = 0;
+  virtual void interact(std::shared_ptr<moving_object> otherObject) = 0;
   void addProperty(std::string property);
   bool deleteProperty(std::string property);
   bool hasProperty(std::string property);
-  [[nodiscard]] std::set<std::string> getProperties() const;
   std::set<std::string>& getProperties();
 
-  interacting_object* whoIsFemale(const std::shared_ptr<interacting_object>& otherObject);
-  bool canMakeBabies(const std::shared_ptr<interacting_object>& otherObject);
+
 
 
 };
